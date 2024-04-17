@@ -1,0 +1,37 @@
+{
+  "name": "vue-reader2",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "lib/vue-reader2.cjs.js",
+  "module": "lib/vue-reader2.es.js",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "vue3",
+    "reader",
+    "epub",
+    "MOBI",
+    "KF8",
+    "AZW3",
+    "FB2",
+    "CBZ",
+    "PDF"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "compile": "vite build",
+    "format": "prettier --write src/modules/**/*.{ts,vue,tsx}"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "prettier": "^3.2.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue": "^3.4.21",
+    "vue-tsc": "^2.0.6"
+  }
+}
