@@ -23,7 +23,7 @@ import { ref, toRefs, watch, onMounted } from 'vue'
 
 const props = defineProps({
   url: {
-    type: [String, ArrayBuffer],
+    type: [String, File],
   },
   tocChanged: Function,
   getRendition: Function,
@@ -79,6 +79,7 @@ const getCSS = ({ spacing, justify, hyphenate }) => `
 
 const initBook = async () => {
   if (url.value) {
+    view && view.close()
     if (typeof url.value === 'string') {
       fetch(url.value)
         .then((res) => res.blob())

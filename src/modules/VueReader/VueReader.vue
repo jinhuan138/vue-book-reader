@@ -90,6 +90,9 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  getRendition:{
+    type: Function,
+  }
 })
 
 const book = reactive({
@@ -97,14 +100,18 @@ const book = reactive({
   expandedToc: false, //目录展开
 })
 
+const { getRendition } = props
+
 const { toc, expandedToc } = toRefs(book)
+
+const bookRef = ref(null)
 
 const bookName = ref('')
 
 let rendition = null
 
-const bookRef = ref(null)
 const onGetRendition = (val) => {
+  getRendition && getRendition(val)
   const { book } = val
   rendition = val
   const title = book.metadata?.title
