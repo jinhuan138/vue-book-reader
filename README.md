@@ -153,10 +153,6 @@ const locationChange = (detail) => {
 
 ```
 
-## Search in the book
-
-
-
 ## Get book information
 
 ```vue

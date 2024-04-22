@@ -1,7 +1,4 @@
 import "./foliate-js/view.js";
-import { createTOCView } from "./foliate-js/ui/tree.js";
-import { createMenu } from "./foliate-js/ui/menu.js";
-import { Overlayer } from "./foliate-js/overlayer.js";
 
 const isZip = async (file) => {
     const arr = new Uint8Array(await file.slice(0, 4).arrayBuffer());

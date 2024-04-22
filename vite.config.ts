@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import vue from '@vitejs/plugin-vue'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
-  build:{
+  plugins: [vue(), cssInjectedByJsPlugin()],
+  build: {
     copyPublicDir: false,
     emptyOutDir: true,
     sourcemap: false,
@@ -12,7 +13,7 @@ export default defineConfig({
     outDir: 'lib',
     lib: {
       entry: 'src/modules/index.ts',
-      name: 'vue-reader',
+      name: 'vue-book-reader',
       fileName: (format) => `vue-book-reader.${format}.js`,
     },
     rollupOptions: {
@@ -25,5 +26,5 @@ export default defineConfig({
         },
       },
     },
-  }
+  },
 })
