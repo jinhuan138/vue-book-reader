@@ -36,38 +36,11 @@
     <!-- 目录 -->
     <div v-if="showToc">
       <div class="tocArea">
-        <div v-for="(item, index) in toc" :key="index">
-          <button
-            type="button"
-            class="tocAreaButton"
-            @click="setLocation(item.href)"
-          >
-            {{ item.label }}
-            <!-- 展开 -->
-            <div
-              class="expansion"
-              v-if="item.subitems && item.subitems.length > 0"
-              :style="{
-                transform: item.expansion ? 'rotate(180deg)' : 'rotate(0deg)',
-              }"
-              @click.stop="item.expansion = !item.expansion"
-            ></div>
-          </button>
-          <!-- 二级目录 -->
-          <template v-if="item.subitems && item.subitems.length > 0">
-            <div v-show="item.expansion">
-              <button
-                type="button"
-                v-for="(subitem, index) in item.subitems"
-                :key="index"
-                class="tocAreaButton"
-                @click="setLocation(subitem['href'])"
-              >
-                {{ '&nbsp;'.repeat(4) + subitem['label'] }}
-              </button>
-            </div>
-          </template>
-        </div>
+        <TocComponent
+          :toc="toc"
+          :current="currentHref"
+          :setLocation="setLocation"
+        />
       </div>
       <!-- 目录遮罩 -->
       <div v-if="expandedToc" class="tocBackground" @click="toggleToc"></div>
@@ -76,7 +49,109 @@
 </template>
 <script setup>
 import BookView from '../BookView/BookView.vue'
-import { ref, reactive, toRefs, onUnmounted } from 'vue'
+import {
+  ref,
+  reactive,
+  toRefs,
+  defineComponent,
+  getCurrentInstance,
+  Transition,
+  h as _h,
+} from 'vue'
+
+const TocComponent = defineComponent({
+  name: 'TocComponent',
+
+  props: {
+    toc: {
+      type: Array,
+      default: () => [],
+    },
+    current: {
+      type: [String, Number],
+      default: '',
+    },
+    setLocation: {
+      type: Function,
+      required: true,
+    },
+    isSubmenu: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+  },
+
+  setup(props) {
+    const vm = getCurrentInstance()
+    const h = _h.bind(vm)
+
+    const { setLocation, isSubmenu } = props
+    const { toc, current } = toRefs(props)
+
+    return () =>
+      h(
+        'div',
+        null,
+        toc.value.map((item, index) => {
+          return h('div', { key: index }, [
+            h(
+              'button',
+              {
+                class: [
+                  'tocAreaButton',
+                  item.href === current.value ? 'active' : '',
+                ],
+                onClick: () => {
+                  if (item.subitems && item.subitems.length > 0) {
+                    item.expansion = !item.expansion
+                    setLocation(item.href, false)
+                  } else {
+                    setLocation(item.href)
+                  }
+                },
+              },
+              [
+                isSubmenu ? ' '.repeat(4) + item.label : item.label,
+                // 展开
+                item.subitems &&
+                  item.subitems.length > 0 &&
+                  h('div', {
+                    class: `${item.expansion ? 'open' : ''} expansion`,
+                  }),
+              ],
+            ),
+            //多级目录
+            item.subitems &&
+              item.subitems.length > 0 &&
+              h(
+                Transition,
+                { name: 'collapse-transition' },
+                {
+                  default: () =>
+                    h(
+                      'div',
+                      {
+                        style: {
+                          display: item.expansion ? undefined : 'none',
+                        },
+                      },
+                      [
+                        h(TocComponent, {
+                          toc: item.subitems,
+                          current: current.value,
+                          setLocation,
+                          isSubmenu: true,
+                        }),
+                      ],
+                    ),
+                },
+              ),
+          ])
+        }),
+      )
+  },
+})
 
 const props = defineProps({
   title: {
@@ -90,9 +165,9 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  getRendition:{
+  getRendition: {
     type: Function,
-  }
+  },
 })
 
 const book = reactive({
@@ -105,6 +180,7 @@ const { getRendition } = props
 const { toc, expandedToc } = toRefs(book)
 
 const bookRef = ref(null)
+const currentHref = ref(null)
 
 const bookName = ref('')
 
@@ -133,12 +209,13 @@ const pre = () => {
   bookRef.value?.prevPage()
 }
 
-const setLocation = (href) => {
+const setLocation = (href, close = true) => {
   bookRef.value.setLocation(href)
   expandedToc.value = false
+  expandedToc.value = !close
 }
 </script>
-<style scoped>
+<style>
 /* container */
 .container {
   overflow: hidden;
