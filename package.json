@@ -1,6 +1,6 @@
 {
   "name": "vue-book-reader",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "main": "lib/vue-book-reader.cjs.js",
   "module": "lib/vue-book-reader.es.js",
@@ -18,6 +18,10 @@
     "CBZ",
     "PDF"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jinhuan138/vue-book-reader.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -31,11 +35,9 @@
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
+    "vite-plugin-css-injected-by-js": "^3.5.0",
     "vitepress": "1.0.0-rc.45",
     "vue": "^3.4.21",
     "vue-tsc": "^2.0.6"
-  },
-  "dependencies": {
-    "vite-plugin-css-injected-by-js": "^3.5.0"
   }
 }

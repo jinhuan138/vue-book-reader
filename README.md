@@ -3,7 +3,7 @@
 ## Basic usage
 
 ```bash
-npm install vue-reader --save
+npm install vue-book-reader --save
 ```
 
 And in your vue-component...
@@ -35,6 +35,32 @@ import { VueReader } from 'vue-book-reader'
 
 ## Recipes and tips
 
+## custom css
+
+```vue
+<template>
+  <vue-reader url="/files/梵高手稿.epub" :getRendition="getRendition">
+  </vue-reader>
+</template>
+
+<script setup>
+import VueReader from 'vue-book-reader'
+import { ref } from 'vue'
+
+const getCSS = (style) => [
+  `
+    html {
+      background: #000;
+      color: #fff;
+    }`,
+]
+const getRendition = async (rendition) => {
+  const { book, renderer } = rendition
+  renderer.setStyles(getCSS())
+}
+</script>
+```
+
 ## Display a scrolled epub-view
 
 ```vue
@@ -48,6 +74,7 @@ import { VueReader } from 'vue-book-reader'
 import VueReader from 'vue-book-reader'
 
 const getRendition =(view)=>{
+  //scrolled or paginated
   view?.renderer.setAttribute('flow', 'scrolled')
 }
 </script>
@@ -179,7 +206,7 @@ const locationChange = (detail) => {
 </template>
 
 <script setup>
-import VueReader from './modules/VueReader/VueReader.vue'
+import VueReader from 'vue-book-reader'
 import { ref } from 'vue'
 
 const information = ref(null)

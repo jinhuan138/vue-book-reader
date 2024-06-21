@@ -14,7 +14,7 @@
       </button>
       <!-- 书名 -->
       <slot name="title">
-        <div class="titleArea">{{ title || bookName }}</div>
+        <div class="titleArea" :title="title || bookName">{{ title || bookName }}</div>
       </slot>
       <!-- 阅读 -->
       <book-view
@@ -90,66 +90,62 @@ const TocComponent = defineComponent({
     const { toc, current } = toRefs(props)
 
     return () =>
-      h(
-        'div',
-        null,
-        toc.value.map((item, index) => {
-          return h('div', { key: index }, [
-            h(
-              'button',
-              {
-                class: [
-                  'tocAreaButton',
-                  item.href === current.value ? 'active' : '',
-                ],
-                onClick: () => {
-                  if (item.subitems && item.subitems.length > 0) {
-                    item.expansion = !item.expansion
-                    setLocation(item.href, false)
-                  } else {
-                    setLocation(item.href)
-                  }
-                },
-              },
-              [
-                isSubmenu ? ' '.repeat(4) + item.label : item.label,
-                // 展开
-                item.subitems &&
-                  item.subitems.length > 0 &&
-                  h('div', {
-                    class: `${item.expansion ? 'open' : ''} expansion`,
-                  }),
+      toc.value.map((item, index) => {
+        return h('div', { key: index }, [
+          h(
+            'button',
+            {
+              class: [
+                'tocAreaButton',
+                item.href === current.value ? 'active' : '',
               ],
-            ),
-            //多级目录
-            item.subitems &&
-              item.subitems.length > 0 &&
-              h(
-                Transition,
-                { name: 'collapse-transition' },
-                {
-                  default: () =>
-                    h(
-                      'div',
-                      {
-                        style: {
-                          display: item.expansion ? undefined : 'none',
-                        },
+              onClick: () => {
+                if (item.subitems && item.subitems.length > 0) {
+                  item.expansion = !item.expansion
+                  setLocation(item.href, false)
+                } else {
+                  setLocation(item.href)
+                }
+              },
+            },
+            [
+              isSubmenu ? ' '.repeat(4) + item.label : item.label,
+              // 展开
+              item.subitems &&
+                item.subitems.length > 0 &&
+                h('div', {
+                  class: `${item.expansion ? 'open' : ''} expansion`,
+                }),
+            ],
+          ),
+          //多级目录
+          item.subitems &&
+            item.subitems.length > 0 &&
+            h(
+              Transition,
+              { name: 'collapse-transition' },
+              {
+                default: () =>
+                  h(
+                    'div',
+                    {
+                      style: {
+                        display: item.expansion ? undefined : 'none',
                       },
-                      [
-                        h(TocComponent, {
-                          toc: item.subitems,
-                          current: current.value,
-                          setLocation,
-                          isSubmenu: true,
-                        }),
-                      ],
-                    ),
-                },
-              ),
-          ])
-        }),
-      )
+                    },
+                    [
+                      h(TocComponent, {
+                        toc: item.subitems,
+                        current: current.value,
+                        setLocation,
+                        isSubmenu: true,
+                      }),
+                    ],
+                  ),
+              },
+            ),
+        ])
+      })
   },
 })
 
