@@ -376,6 +376,7 @@ export class Paginator extends HTMLElement {
     ]
     #root = this.attachShadow({ mode: 'closed' })
     #observer = new ResizeObserver(() => this.render())
+    #top
     #background
     #container
     #header
@@ -399,61 +400,73 @@ export class Paginator extends HTMLElement {
         super()
         this.#root.innerHTML = `<style>
         :host {
-            --_gap: 7%;
-            --_margin: 48px;
-            --_max-inline-size: 720px;
-            --_max-block-size: 1440px;
-            --_max-column-count: 2;
-            --_vertical: 0;
-            --_half-gap: calc(var(--_gap) / 2);
-            --_max-width: calc(
-                var(--_vertical) * var(--_max-block-size)
-                + (1 - var(--_vertical)) * var(--_max-inline-size) * var(--_max-column-count)
-            );
-            --_max-height: calc(
-                var(--_vertical) * var(--_max-inline-size) * var(--_max-column-count)
-                + (1 - var(--_vertical)) * var(--_max-block-size)
-            );
-            display: grid;
-            grid-template-columns:
-                minmax(var(--_half-gap), 1fr)
-                minmax(0, var(--_max-width))
-                minmax(var(--_half-gap), 1fr);
-            grid-template-rows:
-                minmax(var(--_margin), 1fr)
-                minmax(0, var(--_max-height))
-                minmax(var(--_margin), 1fr);
+            display: block;
+            container-type: size;
+        }
+        :host, #top {
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
             width: 100%;
             height: 100%;
         }
+        #top {
+            --_gap: 7%;
+            --_margin: 48px;
+            --_max-inline-size: 720px;
+            --_max-block-size: 1440px;
+            --_max-column-count: 2;
+            --_max-column-count-portrait: 1;
+            --_max-column-count-spread: var(--_max-column-count);
+            --_half-gap: calc(var(--_gap) / 2);
+            --_max-width: calc(var(--_max-inline-size) * var(--_max-column-count-spread));
+            --_max-height: var(--_max-block-size);
+            display: grid;
+            grid-template-columns:
+                minmax(var(--_half-gap), 1fr)
+                var(--_half-gap)
+                minmax(0, calc(var(--_max-width) - var(--_gap)))
+                var(--_half-gap)
+                minmax(var(--_half-gap), 1fr);
+            grid-template-rows:
+                minmax(var(--_margin), 1fr)
+                minmax(0, var(--_max-height))
+                minmax(var(--_margin), 1fr);
+            &.vertical {
+                --_max-column-count-spread: var(--_max-column-count-portrait);
+                --_max-width: var(--_max-block-size);
+                --_max-height: calc(var(--_max-inline-size) * var(--_max-column-count-spread));
+            }
+            @container (orientation: portrait) {
+                & {
+                    --_max-column-count-spread: var(--_max-column-count-portrait);
+                }
+                &.vertical {
+                    --_max-column-count-spread: var(--_max-column-count);
+                }
+            }
+        }
         #background {
-            grid-column-start: 1;
-            grid-column-end: 4;
-            grid-row-start: 1;
-            grid-row-end: 4;
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
         }
         #container {
-            grid-column-start: 2;
-            grid-row-start: 2;
+            grid-column: 2 / 5;
+            grid-row: 2;
             overflow: hidden;
         }
         :host([flow="scrolled"]) #container {
-            grid-column-start: 1;
-            grid-column-end: 4;
-            grid-row-start: 1;
-            grid-row-end: 4;
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
             overflow: auto;
         }
         #header {
-            grid-column-start: 2;
-            grid-row-start: 1;
+            grid-column: 3 / 4;
+            grid-row: 1;
         }
         #footer {
-            grid-column-start: 2;
-            grid-row-start: 3;
+            grid-column: 3 / 4;
+            grid-row: 3;
             align-self: end;
         }
         #header, #footer {
@@ -475,12 +488,15 @@ export class Paginator extends HTMLElement {
             opacity: .6;
         }
         </style>
-        <div id="background" part="filter"></div>
-        <div id="header"></div>
-        <div id="container"></div>
-        <div id="footer"></div>
+        <div id="top">
+            <div id="background" part="filter"></div>
+            <div id="header"></div>
+            <div id="container"></div>
+            <div id="footer"></div>
+        </div>
         `
 
+        this.#top = this.#root.getElementById('top')
         this.#background = this.#root.getElementById('background')
         this.#container = this.#root.getElementById('container')
         this.#header = this.#root.getElementById('header')
@@ -519,11 +535,11 @@ export class Paginator extends HTMLElement {
             case 'margin':
             case 'max-block-size':
             case 'max-column-count':
-                this.style.setProperty('--_' + name, value)
+                this.#top.style.setProperty('--_' + name, value)
                 break
             case 'max-inline-size':
                 // needs explicit `render()` as it doesn't necessarily resize
-                this.style.setProperty('--_' + name, value)
+                this.#top.style.setProperty('--_' + name, value)
                 this.render()
                 break
         }
@@ -547,7 +563,7 @@ export class Paginator extends HTMLElement {
     #beforeRender({ vertical, rtl, background }) {
         this.#vertical = vertical
         this.#rtl = rtl
-        this.style.setProperty('--_vertical', vertical ? 1 : 0)
+        this.#top.classList.toggle('vertical', vertical)
 
         // set background to `doc` background
         // this is needed because the iframe does not fill the whole element
@@ -556,9 +572,9 @@ export class Paginator extends HTMLElement {
         const { width, height } = this.#container.getBoundingClientRect()
         const size = vertical ? height : width
 
-        const style = getComputedStyle(this)
+        const style = getComputedStyle(this.#top)
         const maxInlineSize = parseFloat(style.getPropertyValue('--_max-inline-size'))
-        const maxColumnCount = parseInt(style.getPropertyValue('--_max-column-count'))
+        const maxColumnCount = parseInt(style.getPropertyValue('--_max-column-count-spread'))
         const margin = parseFloat(style.getPropertyValue('--_margin'))
         this.#margin = margin
 
@@ -586,7 +602,7 @@ export class Paginator extends HTMLElement {
         if (flow === 'scrolled') {
             // FIXME: vertical-rl only, not -lr
             this.setAttribute('dir', vertical ? 'rtl' : 'ltr')
-            this.style.padding = '0'
+            this.#top.style.padding = '0'
             const columnWidth = maxInlineSize
 
             this.heads = null
@@ -607,7 +623,6 @@ export class Paginator extends HTMLElement {
         const marginalStyle = {
             gridTemplateColumns: `repeat(${marginalDivisor}, 1fr)`,
             gap: `${gap}px`,
-            padding: vertical ? '0' : `0 ${gap / 2}px`,
             direction: this.bookDir === 'rtl' ? 'rtl' : 'ltr',
         }
         Object.assign(this.#header.style, marginalStyle)

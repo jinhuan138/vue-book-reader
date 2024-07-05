@@ -12,6 +12,8 @@
 <script setup>
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
+import '../utils/foliate-js/vendor/pdfjs/pdf.worker.js'
+import '../utils/foliate-js/vendor/pdfjs/pdf.js'
 import { getView } from '../utils/reader'
 import {
   clickListener,
