@@ -38,6 +38,7 @@
     "vite-plugin-css-injected-by-js": "^3.5.0",
     "vitepress": "1.0.0-rc.45",
     "vue": "^3.4.21",
+    "vue-book-reader": "^1.0.5",
     "vue-tsc": "^2.0.6"
   }
 }
