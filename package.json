@@ -1,6 +1,6 @@
 {
   "name": "vue-book-reader",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "type": "module",
   "main": "lib/vue-book-reader.cjs.js",
   "module": "lib/vue-book-reader.es.js",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "prettier": "^3.2.5",
-    "typescript": "^5.2.2",
+    "typescript": "^5.4.5",
     "vite": "^5.2.0",
     "vite-plugin-css-injected-by-js": "^3.5.0",
     "vitepress": "1.0.0-rc.45",

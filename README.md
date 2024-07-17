@@ -1,4 +1,7 @@
-# Vue Reader - an easy way to embed a reader into your webapp
+# vue-book-reader - an easy way to embed a reader into your webapp
+
+vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.
+Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
 
 ## Basic usage
 
@@ -21,11 +24,12 @@ import { VueReader } from 'vue-book-reader'
 
 ## VueReader Attributes
 
-| **Name** | **Description**         | **Type**               | **Default** |
-| -------- | ----------------------- | ---------------------- | ----------- |
-| url      | book url or File        | `string`/`File`        | —           |
-| title    | the title of the book   | `string`               | —           |
-| showToc  | whether to show the toc | `boolean`              | true        |
+| **Name** | **Description**                   | **Type**               | **Default** |
+| -------- | --------------------------------- | ---------------------- | ----------- |
+| url      | book url or File                  | `string`/`File`        | —           |
+| location | set / update location of the book | `string`/`number`      | —           |
+| title    | the title of the book             | `string`               | —           |
+| showToc  | whether to show the toc           | `boolean`              | true        |
 
 ## VueReader Slots
 

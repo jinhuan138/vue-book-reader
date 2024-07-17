@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <div class="readerArea" :class="{ containerExpanded: expandedToc }">
+    <div
+      class="readerArea"
+      :class="{ containerExpanded: expandedToc }"
+      :style="{ backgroundColor }"
+    >
       <!--展开目录 -->
       <button
         v-if="showToc"
@@ -14,7 +18,9 @@
       </button>
       <!-- 书名 -->
       <slot name="title">
-        <div class="titleArea" :title="title || bookName">{{ title || bookName }}</div>
+        <div class="titleArea" :title="title || bookName">
+          {{ title || bookName }}
+        </div>
       </slot>
       <!-- 阅读 -->
       <book-view
@@ -164,6 +170,10 @@ const props = defineProps({
   getRendition: {
     type: Function,
   },
+  backgroundColor: {
+    type: String,
+    default: '#fff',
+  },
 })
 
 const book = reactive({
@@ -228,7 +238,7 @@ const setLocation = (href, close = true) => {
   z-index: 1;
   height: 100%;
   width: 100%;
-  background-color: #fff;
+  /* background-color: #fff; */
   transition: all 0.3s ease;
 }
 

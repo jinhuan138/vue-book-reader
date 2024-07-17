@@ -27,6 +27,9 @@ const props = defineProps({
   url: {
     type: [String, File],
   },
+  location:{
+    type: [String, Number],
+  },
   tocChanged: Function,
   getRendition: Function,
 })
@@ -114,7 +117,11 @@ const initReader = () => {
   registerEvents()
   getRendition(view)
   tocChanged && tocChanged(book.toc)
-  view.renderer.next()
+  if(location.value){
+    view?.goTo(location.value)
+  }else{
+    view.renderer.next()
+  }
 }
 
 const flipPage = (direction) => {
