@@ -1,6 +1,6 @@
 {
   "name": "vue-book-reader",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "main": "lib/vue-book-reader.cjs.js",
   "module": "lib/vue-book-reader.es.js",
