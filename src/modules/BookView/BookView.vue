@@ -12,9 +12,9 @@
 <script setup>
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
-import '../utils/foliate-js/vendor/pdfjs/pdf.worker.js'
 import '../utils/foliate-js/vendor/pdfjs/pdf.js'
-import { getView } from '../utils/reader'
+import '../utils/foliate-js/vendor/pdfjs/pdf.worker.js'
+import { getView } from '../utils/foliate-js/reader.js'
 import {
   clickListener,
   swipListener,
@@ -27,7 +27,7 @@ const props = defineProps({
   url: {
     type: [String, File],
   },
-  location:{
+  location: {
     type: [String, Number],
   },
   tocChanged: Function,
@@ -117,9 +117,9 @@ const initReader = () => {
   registerEvents()
   getRendition(view)
   tocChanged && tocChanged(book.toc)
-  if(location.value){
+  if (location.value) {
     view?.goTo(location.value)
-  }else{
+  } else {
     view.renderer.next()
   }
 }

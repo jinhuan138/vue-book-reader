@@ -14,7 +14,7 @@ export default defineConfig({
     lib: {
       entry: 'src/modules/index.ts',
       name: 'vue-book-reader',
-      fileName: (format) => `vue-book-reader.${format}.js`,
+      fileName: (format) => `vue-book-reader.${format}.js`
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
