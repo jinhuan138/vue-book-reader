@@ -49,7 +49,7 @@ const VueReader = defineClientComponent(() => {
 ```vue
 <template>
    <div style='height: 100vh'>
-      <vue-reader url='/vue-book-reader/files/啼笑因缘.epub'/>
+      <vue-reader url='/vue-book-reader/files/啼笑因缘.epub' :getRendition="getRendition"/>
    </div>
 </template>
 
@@ -80,7 +80,7 @@ const getRendition = async (rendition) => {
 ```vue
 <template>
    <div style='height: 100vh'>
-      <vue-reader url='/vue-book-reader/files/啼笑因缘.mobi'/>
+      <vue-reader url='/vue-book-reader/files/啼笑因缘.mobi' :getRendition="getRendition"/>
    </div>
 </template>
 
@@ -103,7 +103,7 @@ const getRendition =(view)=>{
 ```vue
 <template>
    <div style='height: 100vh'>
-      <vue-reader url='/vue-book-reader/files/啼笑因缘.mobi'/>
+      <vue-reader url='/vue-book-reader/files/啼笑因缘.mobi' :getRendition="getRendition"/>
    </div>
 </template>
 

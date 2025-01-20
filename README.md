@@ -3,6 +3,10 @@
 vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.
 Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
 
+## Document
+
+[document](https://jinhuan138.github.io/vue-book-reader/)
+
 ## Basic usage
 
 ```bash
@@ -70,7 +74,7 @@ const getRendition = async (rendition) => {
 ```vue
 <template>
   <div style="height: 100vh">
-    <VueReader url="/files/啼笑因缘.mobi":getRendition="getRendition"/>
+    <VueReader url="/files/啼笑因缘.mobi" :getRendition="getRendition"/>
   </div>
 </template>
 
@@ -118,8 +122,7 @@ const onchange = (e) => {
       url="/files/啼笑因缘.azw3"
       :getRendition="getRendition"
       @update:location="locationChange"
-    >
-    </vue-reader>
+    />
     <div class="progress">
       <input
         type="number"
@@ -192,8 +195,7 @@ const locationChange = (detail) => {
     url="/files/啼笑因缘.azw3"
     :getRendition="getRendition"
     v-show="false"
-  >
-  </vue-reader>
+  />
   <div v-if="information" style="color: #000">
     <img
       :src="information.cover"

@@ -18,6 +18,7 @@
     "CBZ",
     "PDF"
   ],
+  "homepage": "https://jinhuan138.github.io/vue-book-reader/",
   "repository": {
     "type": "git",
     "url": "git@github.com:jinhuan138/vue-book-reader.git"
