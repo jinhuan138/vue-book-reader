@@ -18,6 +18,7 @@ And in your vue-component...
    </div>
 </template>
 <script setup>
+//just need import { VueReader } from 'vue-book-reader'
 import { defineClientComponent } from 'vitepress'
 const VueReader = defineClientComponent(() => {
   return import('vue-book-reader')
