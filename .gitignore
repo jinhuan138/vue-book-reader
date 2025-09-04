@@ -29,5 +29,3 @@ package-lock.json
 # vitepress
 docs/.vitepress/cache
 .vitepress/cache
-
-src/modules/utils/foliate-js
