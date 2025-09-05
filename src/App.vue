@@ -1,11 +1,10 @@
 <template>
-  <vue-reader url="/files/啼笑因缘.pdf" :getRendition="getRendition">
+  <vue-reader url="/files/啼笑因缘.epub" :getRendition="getRendition">
   </vue-reader>
 </template>
 
 <script setup>
 import VueReader from './modules/VueReader/VueReader.vue'
-import mediumZoom from 'https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.esm.js'
 import { ref } from 'vue'
 
 const information = ref(null)

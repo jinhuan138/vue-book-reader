@@ -49,5 +49,8 @@
     "canvas": false
   },
   "packageManager": "pnpm@9.6.0",
-  "preinstall": "npx only-allow pnpm"
+  "preinstall": "npx only-allow pnpm",
+  "dependencies": {
+    "core-js": "^3.45.1"
+  }
 }

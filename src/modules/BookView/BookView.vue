@@ -12,9 +12,8 @@
 <script setup>
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
-import '../utils/foliate-js/vendor/pdfjs/pdf.js'
-import '../utils/foliate-js/vendor/pdfjs/pdf.worker.js'
-import { getView } from '../utils/foliate-js/reader.js'
+import '../utils/foliate-js/view.js'
+import "core-js/proposals/array-grouping-v2"
 import {
   clickListener,
   swipListener,
@@ -83,20 +82,13 @@ const getCSS = ({ spacing, justify, hyphenate }) => `
 `
 
 const initBook = async () => {
+  view = document.createElement('foliate-view')
+  viewer.value.append(view)
   if (url.value) {
     view && view.close()
     if (typeof url.value === 'string') {
-      fetch(url.value)
-        .then((res) => res.blob())
-        .then(async (blob) => {
-          const arr = url.value.split('/')
-          view = await getView(
-            new File([blob], arr[arr.length - 1]),
-            viewer.value,
-          )
-          initReader()
-        })
-        .catch((e) => console.error(e))
+      await view.open(url.value)
+      initReader()
     } else {
       view = await getView(url.value, viewer.value)
       initReader()
