@@ -11,6 +11,7 @@ export default defineConfig({
     sourcemap: false,
     minify: true,
     outDir: 'lib',
+    target: ['edge90', 'chrome90', 'firefox90', 'safari15'],
     lib: {
       entry: 'src/modules/index.ts',
       name: 'vue-book-reader',
