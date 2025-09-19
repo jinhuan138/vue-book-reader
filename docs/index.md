@@ -17,7 +17,7 @@ hero:
       link: /guide/introduction
       theme: brand
     - text: Tips
-      link: /guide/Tips/custom_css
+      link: /guide/tips/custom_css
       theme: alt
 features:
   - icon: 📚
