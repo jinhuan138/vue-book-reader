@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { VueReader } from 'vue-book-reader'
+import { defineClientComponent } from 'vitepress'
+const VueReader = defineClientComponent(() => import('vue-book-reader'))
 const getRendition = (rendition) => {
   rendition.renderer.setAttribute('animated', '')
 }

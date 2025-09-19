@@ -31,9 +31,7 @@
 
 <script setup>
 import { defineClientComponent } from 'vitepress'
-const VueReader = defineClientComponent(() => {
-  return import('vue-book-reader')
-})
+const VueReader = defineClientComponent(() => import('vue-book-reader'))
 import { ref } from 'vue'
 
 let view = null

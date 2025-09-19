@@ -43,8 +43,8 @@ importers:
   docs:
     dependencies:
       vue-book-reader:
-        specifier: ^1.0.5
-        version: 1.0.5
+        specifier: ^1.1.1
+        version: 1.1.1
     devDependencies:
       sass-embedded:
         specifier: ^1.92.1
@@ -2048,11 +2048,11 @@ packages:
       postcss:
         optional: true
 
-  vue-book-reader@1.0.5:
-    resolution: {integrity: sha512-5Ey89pLtaEWCLpJAh1oUUVfYcJgVoVBEM6fIkUdRyk06CxiqK6b5WRobiWsJK6+XhCH+IF7c5h0WyHWs/ZXgBg==}
-
   vue-book-reader@1.0.9:
     resolution: {integrity: sha512-UK05QbC6g+tK/9DX/7dYi+0T+/uK/Oq+k4O1C/vLlDGWlmus4lw4BfWvo37V8WLh9dvblRqrBH7Uu0HQ3TqT4Q==}
+
+  vue-book-reader@1.1.1:
+    resolution: {integrity: sha512-qebAh4CExfE7jOCvWvplXdPX/SlXMitjuWdmGm7HVxpjeafRbcAE+ez6rYFntmMiA7IyObBMxUlhE/Y8FoANVg==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -4342,9 +4342,11 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vue-book-reader@1.0.5: {}
-
   vue-book-reader@1.0.9: {}
+
+  vue-book-reader@1.1.1:
+    dependencies:
+      core-js: 3.45.1
 
   vue-demi@0.14.10(vue@3.4.21(typescript@5.7.3)):
     dependencies:
