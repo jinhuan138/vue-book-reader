@@ -14,7 +14,7 @@
       style="width: 100px"
     />
     <p>标题:{{ information.title }}</p>
-    <p>作者:{{ information.author }}</p>
+    <p>作者:{{ information.author.name }}</p>
     <p>出版社:{{ information.publisher }}</p>
     <p>语言:{{ information.language }}</p>
     <p>出版日期:{{ information.published }}</p>
@@ -30,14 +30,7 @@ import { ref } from 'vue'
 const information = ref(null)
 const getRendition = (rendition) => {
   const { book } = rendition
-  const { author } = book.metadata
-  const bookAuthor =
-    typeof author === 'string'
-      ? author
-      : author
-          ?.map((author) => (typeof author === 'string' ? author : author.name))
-          ?.join(', ') ?? ''
-  information.value = { ...book.metadata, author: bookAuthor }
+  information.value =  book.metadata
   book.getCover?.().then((blob) => {
     information.value.cover = URL.createObjectURL(blob)
   })
