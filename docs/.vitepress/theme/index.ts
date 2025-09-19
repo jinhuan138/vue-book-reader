@@ -4,6 +4,7 @@ import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
 import Demo from 'vitepress-theme-demoblock/dist/client/components/Demo.vue'
 import DemoBlock from 'vitepress-theme-demoblock/dist/client/components/DemoBlock.vue'
 import pkg from '../../../package.json'
+import '../styles/index.scss'
 console.log(
   `%c ${pkg.name} %c v`.concat(pkg.version, ' '),
   'background: #35495e; padding: 1px; border-radius: 3px 0 0 3px; color: #fff',

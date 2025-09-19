@@ -63,6 +63,7 @@ import {
   getCurrentInstance,
   Transition,
   h as _h,
+  defineExpose,
 } from 'vue'
 
 const TocComponent = defineComponent({
@@ -220,8 +221,14 @@ const setLocation = (href, close = true) => {
   expandedToc.value = false
   expandedToc.value = !close
 }
+
+defineExpose({
+  nextPage: next,
+  prevPage: pre,
+  setLocation,
+})
 </script>
-<style>
+<style scoped>
 /* container */
 .container {
   overflow: hidden;

@@ -9,28 +9,87 @@ export default defineConfig({
   base: '/vue-book-reader/',
   cleanUrls: true,
   markdown: {
-      theme: { light: 'github-light', dark: 'github-dark' },
-      config: (md) => {
-          md.use(demoBlockPlugin)
-      }
+    theme: { light: 'github-light', dark: 'github-dark' },
+    config: (md) => {
+      md.use(demoBlockPlugin)
+    }
   },
   themeConfig: {
+    logo: '/logo.svg',
+    nav: [{
+      text: "Guide", link: "/guide/introduction"
+    }],
     socialLinks: [
-        { icon: 'github', link: 'https://github.com/jinhuan138/vue-book-reader' }
+      { icon: 'github', link: 'https://github.com/jinhuan138/vue-book-reader' }
     ],
+    search: {
+      provider: 'algolia',
+      options: {
+        indexName: 'vue-reader document search',
+        appId: 'JF9QLK223Q',
+        apiKey: '28ce46c055168c5afcd85319ca19eb97',
+      }
+    },
+    sidebar: {
+      "/guide/": {
+        base: "/guide/",
+        items: [
+          {
+            text: "Guide",
+            items: [
+              {
+                text: "Introduction",
+                link: "introduction",
+              }
+            ],
+          },
+          {
+            text: "Tips",
+            items: [
+              {
+                text: "custom css",
+                link: "tips/custom_css",
+              },
+              {
+                text: "smooth scroll",
+                link: "tips/smooth_scroll",
+              }, {
+                text: "scrolled",
+                link: "tips/scrolled",
+              }, {
+                text: "information",
+                link: "tips/information",
+              }, {
+                text: "import file",
+                link: "tips/import_file",
+              },
+              {
+                text: "current progress",
+                link: "tips/current_progress",
+              },
+              {
+                text: "search",
+                link: "tips/search",
+              },
+            ],
+          },
+        ],
+      },
+    },
   },
   vite: {
     plugins: [demoblockVitePlugin()],
     publicDir: resolve(__dirname, "../../public"),
-    server: {
-        port: 3030,
-    },
-    preview: {
-        port: 3333,
-    },
     ssr: {
       noExternal: ['vue-book-reader'],
-      external:['canvas']
+      external: ['canvas']
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler', // or 'modern'
+        },
+      },
     },
   }
 })
