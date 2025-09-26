@@ -23,12 +23,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/jinhuan138/vue-book-reader' }
     ],
     search: {
-      provider: 'algolia',
-      options: {
-        indexName: 'vue-reader document search',
-        appId: 'JF9QLK223Q',
-        apiKey: '28ce46c055168c5afcd85319ca19eb97',
-      }
+      provider: 'local',
     },
     sidebar: {
       "/guide/": {
