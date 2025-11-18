@@ -42,6 +42,10 @@ export default defineConfig({
             text: "Tips",
             items: [
               {
+                text: "page number",
+                link: "tips/page_number",
+              },
+              {
                 text: "custom css",
                 link: "tips/custom_css",
               },
