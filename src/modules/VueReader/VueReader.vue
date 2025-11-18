@@ -42,11 +42,7 @@
     <!-- 目录 -->
     <div v-if="showToc">
       <div class="tocArea">
-        <TocComponent
-          :toc="toc"
-          :current="currentHref"
-          :setLocation="setLocation"
-        />
+        <Toc :toc="toc" :current="currentHref" :setLocation="setLocation" />
       </div>
       <!-- 目录遮罩 -->
       <div v-if="expandedToc" class="tocBackground" @click="toggleToc"></div>
@@ -55,106 +51,8 @@
 </template>
 <script setup>
 import BookView from '../BookView/BookView.vue'
-import {
-  ref,
-  reactive,
-  toRefs,
-  defineComponent,
-  getCurrentInstance,
-  Transition,
-  h as _h,
-  defineExpose,
-} from 'vue'
-
-const TocComponent = defineComponent({
-  name: 'TocComponent',
-
-  props: {
-    toc: {
-      type: Array,
-      default: () => [],
-    },
-    current: {
-      type: [String, Number],
-      default: '',
-    },
-    setLocation: {
-      type: Function,
-      required: true,
-    },
-    isSubmenu: {
-      type: Boolean,
-      default: false,
-      required: false,
-    },
-  },
-
-  setup(props) {
-    const vm = getCurrentInstance()
-    const h = _h.bind(vm)
-
-    const { setLocation, isSubmenu } = props
-    const { toc, current } = toRefs(props)
-
-    return () =>
-      toc.value.map((item, index) => {
-        return h('div', { key: index }, [
-          h(
-            'button',
-            {
-              class: [
-                'tocAreaButton',
-                item.href === current.value ? 'active' : '',
-              ],
-              onClick: () => {
-                if (item.subitems && item.subitems.length > 0) {
-                  item.expansion = !item.expansion
-                  setLocation(item.href, false)
-                } else {
-                  setLocation(item.href)
-                }
-              },
-            },
-            [
-              isSubmenu ? ' '.repeat(4) + item.label : item.label,
-              // 展开
-              item.subitems &&
-                item.subitems.length > 0 &&
-                h('div', {
-                  class: `${item.expansion ? 'open' : ''} expansion`,
-                }),
-            ],
-          ),
-          //多级目录
-          item.subitems &&
-            item.subitems.length > 0 &&
-            h(
-              Transition,
-              { name: 'collapse-transition' },
-              {
-                default: () =>
-                  h(
-                    'div',
-                    {
-                      style: {
-                        display: item.expansion ? undefined : 'none',
-                      },
-                    },
-                    [
-                      h(TocComponent, {
-                        toc: item.subitems,
-                        current: current.value,
-                        setLocation,
-                        isSubmenu: true,
-                      }),
-                    ],
-                  ),
-              },
-            ),
-        ])
-      })
-  },
-})
+import Toc from './Toc.vue'
+import { ref, reactive, toRefs, defineExpose } from 'vue'
 
 const props = defineProps({
   title: {
@@ -192,13 +90,16 @@ const currentHref = ref(null)
 const bookName = ref('')
 
 let rendition = null
-
+const onRelocate = ({ detail }) => {
+  currentHref.value = detail.tocItem.href
+}
 const onGetRendition = (val) => {
-  getRendition && getRendition(val)
-  const { book } = val
   rendition = val
+  getRendition && getRendition(rendition)
+  const { book } = rendition
   const title = book.metadata?.title
   bookName.value = title || ''
+  rendition.addEventListener('relocate', onRelocate)
 }
 
 const onTocChange = (_toc) => {
@@ -218,7 +119,6 @@ const pre = () => {
 
 const setLocation = (href, close = true) => {
   bookRef.value.setLocation(href)
-  expandedToc.value = false
   expandedToc.value = !close
 }
 
@@ -296,80 +196,6 @@ defineExpose({
   border-radius: 0.5rem;
 }
 
-.tocArea .tocAreaButton {
-  user-select: none;
-  appearance: none;
-  background: none;
-  border: none;
-  display: block;
-  font-family: sans-serif;
-  width: 100%;
-  font-size: 0.9em;
-  text-align: left;
-  padding: 0.9em 1em;
-  border-bottom: 1px solid #ddd;
-  color: #aaa;
-  box-sizing: border-box;
-  outline: none;
-  cursor: pointer;
-  position: relative;
-}
-
-.tocArea .tocAreaButton:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.tocArea .tocAreaButton:active {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.tocArea .active {
-  color: #1565c0;
-  border-bottom: 2px solid #1565c0;
-}
-
-/* 二级目录 */
-.tocArea .tocAreaButton .expansion {
-  cursor: pointer;
-  transform: translateY(-50%);
-  top: 50%;
-  right: 12px;
-  position: absolute;
-  width: 10px;
-  background-color: #a2a5b4;
-  transition:
-    transform 0.3s ease-in-out,
-    top 0.3s ease-in-out;
-}
-
-.tocArea .tocAreaButton .expansion::after,
-.tocArea .tocAreaButton .expansion::before {
-  content: '';
-  position: absolute;
-  width: 6px;
-  height: 2px;
-  background-color: currentcolor;
-  border-radius: 2px;
-  transition:
-    transform 0.3s ease-in-out,
-    top 0.3s ease-in-out;
-}
-/* ↓ */
-.tocArea .tocAreaButton .expansion::before {
-  transform: rotate(-45deg) translateX(2.5px);
-}
-
-.tocArea .tocAreaButton .expansion::after {
-  transform: rotate(45deg) translateX(-2.5px);
-}
-/* ↑ */
-.tocArea .tocAreaButton .open::before {
-  transform: rotate(45deg) translateX(2.5px);
-}
-
-.tocArea .tocAreaButton .open::after {
-  transform: rotate(-45deg) translateX(-2.5px);
-}
 /* tocButton */
 .tocButton {
   background: none;
