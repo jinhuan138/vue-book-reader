@@ -60,7 +60,7 @@ export default defineConfig({
                 link: "tips/information",
               }, {
                 text: "import file",
-                link: "tips/import_file",
+                link: "tips/Import_file",
               },
               {
                 text: "current progress",
