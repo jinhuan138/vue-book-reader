@@ -34,8 +34,8 @@ importers:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.7.3)
       vue-book-reader:
-        specifier: ^1.0.9
-        version: 1.0.9
+        specifier: ^1.1.2
+        version: 1.1.2
       vue-tsc:
         specifier: ^2.0.6
         version: 2.0.13(typescript@5.7.3)
@@ -43,8 +43,8 @@ importers:
   docs:
     dependencies:
       vue-book-reader:
-        specifier: ^1.1.1
-        version: 1.1.1
+        specifier: ^1.1.2
+        version: 1.1.2
     devDependencies:
       sass-embedded:
         specifier: ^1.92.1
@@ -55,6 +55,9 @@ importers:
       vitepress-theme-demoblock:
         specifier: ^3.1.3
         version: 3.1.3(@algolia/client-search@5.19.0)(postcss@8.5.1)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(typescript@5.7.3)
+      vue-easy-lightbox:
+        specifier: ^1.19.0
+        version: 1.19.0(vue@3.5.13(typescript@5.7.3))
 
 packages:
 
@@ -2106,11 +2109,8 @@ packages:
       postcss:
         optional: true
 
-  vue-book-reader@1.0.9:
-    resolution: {integrity: sha512-UK05QbC6g+tK/9DX/7dYi+0T+/uK/Oq+k4O1C/vLlDGWlmus4lw4BfWvo37V8WLh9dvblRqrBH7Uu0HQ3TqT4Q==}
-
-  vue-book-reader@1.1.1:
-    resolution: {integrity: sha512-qebAh4CExfE7jOCvWvplXdPX/SlXMitjuWdmGm7HVxpjeafRbcAE+ez6rYFntmMiA7IyObBMxUlhE/Y8FoANVg==}
+  vue-book-reader@1.1.2:
+    resolution: {integrity: sha512-V8LRhUTp1nJL3xemigeBFbEe+rLTSKw1BbvD/y3wMpjnRQixP3QiYdPv3PJxVtcPkIwDDpC/f2Umwr2mshGdfQ==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -2133,6 +2133,12 @@ packages:
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
+
+  vue-easy-lightbox@1.19.0:
+    resolution: {integrity: sha512-YxLXgjEn91UF3DuK1y8u3Pyx2sJ7a/MnBpkyrBSQkvU1glzEJASyAZ7N+5yDpmxBQDVMwCsL2VmxWGIiFrWCgA==}
+    engines: {node: '>=14.18.3'}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
@@ -4442,9 +4448,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vue-book-reader@1.0.9: {}
-
-  vue-book-reader@1.1.1:
+  vue-book-reader@1.1.2:
     dependencies:
       core-js: 3.45.1
 
@@ -4461,6 +4465,10 @@ snapshots:
       vue: 3.4.21(typescript@5.7.3)
 
   vue-demi@0.14.7(vue@3.5.13(typescript@5.7.3)):
+    dependencies:
+      vue: 3.5.13(typescript@5.7.3)
+
+  vue-easy-lightbox@1.19.0(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
 

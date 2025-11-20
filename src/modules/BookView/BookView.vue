@@ -13,14 +13,14 @@
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
 import '../utils/foliate-js/view.js'
-import "core-js/proposals/array-grouping-v2"
+import 'core-js/proposals/array-grouping-v2'
 import {
   clickListener,
   swipListener,
   wheelListener,
   keyListener,
 } from '../utils/listener/listener'
-import { ref, toRefs, watch, onMounted } from 'vue'
+import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   url: {
@@ -107,7 +107,9 @@ const initReader = () => {
     }),
   )
   registerEvents()
-  getRendition(view)
+  view.addEventListener('load', () => {
+    getRendition(view)
+  })
   tocChanged && tocChanged(book.toc)
   if (location.value) {
     view?.goTo(location.value)
@@ -131,6 +133,10 @@ const onLoad = ({ detail: { doc } }) => {
   swipListener(doc, flipPage)
   keyListener(doc, flipPage)
 }
+onUnmounted(()=>{
+  view.removeEventListener('load', onLoad)
+  view.removeEventListener('relocate', onRelocate)
+})
 
 const onRelocate = ({ detail }) => {
   emit('update:location', detail)

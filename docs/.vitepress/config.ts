@@ -69,6 +69,9 @@ export default defineConfig({
               {
                 text: "search",
                 link: "tips/search",
+              }, {
+                text: "lightbox",
+                link: "tips/lightbox",
               },
             ],
           },
