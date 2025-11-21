@@ -14,6 +14,6 @@
     "vue-easy-lightbox": "^1.19.0"
   },
   "dependencies": {
-    "vue-book-reader": "^1.1.2"
+    "vue-book-reader": "latest"
   }
 }

@@ -86,13 +86,8 @@ const initBook = async () => {
   viewer.value.append(view)
   if (url.value) {
     view && view.close()
-    if (typeof url.value === 'string') {
-      await view.open(url.value)
-      initReader()
-    } else {
-      view = await getView(url.value, viewer.value)
-      initReader()
-    }
+    await view.open(url.value)
+    initReader()
   }
 }
 
