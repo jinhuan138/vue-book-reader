@@ -12,7 +12,7 @@
 <script setup>
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
-import '../utils/foliate-js/view.js'
+
 import 'core-js/proposals/array-grouping-v2'
 import {
   clickListener,
@@ -21,6 +21,14 @@ import {
   keyListener,
 } from '../utils/listener/listener'
 import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
+window.Promise.withResolvers = function () {
+  let resolve, reject
+  const promise = new Promise((res, rej) => {
+    resolve = res
+    reject = rej
+  })
+  return { resolve, reject, promise }
+}
 
 const props = defineProps({
   url: {
@@ -82,13 +90,19 @@ const getCSS = ({ spacing, justify, hyphenate }) => `
 `
 
 const initBook = async () => {
-  view = document.createElement('foliate-view')
-  viewer.value.append(view)
-  if (url.value) {
-    view && view.close()
-    await view.open(url.value)
-    initReader()
-  }
+  import('../utils/foliate-js/view.js')
+    .then(async (res) => {
+      view = document.createElement('foliate-view')
+      viewer.value.append(view)
+      if (url.value) {
+        view && view.close()
+        await view.open(url.value)
+        initReader()
+      }
+    })
+    .catch((error) => {
+      console.log('Error loading module:', error)
+    })
 }
 
 const initReader = () => {
@@ -128,9 +142,9 @@ const onLoad = ({ detail: { doc } }) => {
   swipListener(doc, flipPage)
   keyListener(doc, flipPage)
 }
-onUnmounted(()=>{
-  view.removeEventListener('load', onLoad)
-  view.removeEventListener('relocate', onRelocate)
+onUnmounted(() => {
+  view?.removeEventListener('load', onLoad)
+  view?.removeEventListener('relocate', onRelocate)
 })
 
 const onRelocate = ({ detail }) => {

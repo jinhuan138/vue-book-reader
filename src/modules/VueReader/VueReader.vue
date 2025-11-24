@@ -52,7 +52,7 @@
 <script setup>
 import BookView from '../BookView/BookView.vue'
 import Toc from './Toc.vue'
-import { ref, reactive, toRefs, defineExpose } from 'vue'
+import { ref, reactive, toRefs } from 'vue'
 
 const props = defineProps({
   title: {
