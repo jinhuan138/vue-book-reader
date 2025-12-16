@@ -3,7 +3,8 @@
     <div class="viewHolder">
       <div ref="viewer" id="viewer" v-show="isLoaded"></div>
       <div v-if="!isLoaded">
-        <slot name="loadingView"> </slot>
+        <slot name="loadingView" v-if="!isError"> </slot>
+        <slot name="errorView" v-else> </slot>
       </div>
     </div>
   </div>
@@ -49,6 +50,7 @@ const emit = defineEmits(['update:location'])
 let view = null
 const viewer = ref(null)
 const isLoaded = ref(false)
+const isError = ref(false)
 
 const getCSS = ({ spacing, justify, hyphenate }) => `
     @namespace epub "http://www.idpf.org/2007/ops";
@@ -96,12 +98,17 @@ const initBook = async () => {
       viewer.value.append(view)
       if (url.value) {
         view && view.close()
-        await view.open(url.value)
-        initReader()
+        try {
+          await view.open(url.value)
+          initReader()
+        } catch (error) {
+          console.error('Error opening book:', error)
+          isError.value = true
+        }
       }
     })
     .catch((error) => {
-      console.log('Error loading module:', error)
+      console.error('Error opening book:', error)
     })
 }
 

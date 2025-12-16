@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <div
-      class="readerArea"
-      :class="{ containerExpanded: expandedToc }"
-      :style="{ backgroundColor }"
-    >
+    <div class="readerArea" :class="{ containerExpanded: expandedToc }">
       <!--展开目录 -->
       <button
         v-if="showToc"
@@ -32,6 +28,11 @@
         <template #loadingView>
           <slot name="loadingView">
             <div class="loadingView">Loading…</div>
+          </slot>
+        </template>
+        <template #errorView>
+          <slot name="errorView">
+            <div class="errorView">Error loading book</div>
           </slot>
         </template>
       </book-view>
@@ -68,10 +69,6 @@ const props = defineProps({
   },
   getRendition: {
     type: Function,
-  },
-  backgroundColor: {
-    type: String,
-    default: '#fff',
   },
 })
 
@@ -145,7 +142,7 @@ defineExpose({
   z-index: 1;
   height: 100%;
   width: 100%;
-  /* background-color: #fff; */
+  background-color: #fff;
   transition: all 0.3s ease;
 }
 
@@ -269,5 +266,16 @@ defineExpose({
   color: #ccc;
   text-align: center;
   margin-top: -0.5em;
+}
+
+/* errorView */
+.errorView {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  color: #c00;
+  text-align: center;
+  margin-top: -.5em;
 }
 </style>
