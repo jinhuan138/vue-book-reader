@@ -51,7 +51,6 @@ import { VueReader } from 'vue-reader'
 | url              | book url or arrayBuffer   | `string`/`ArrayBuffer` | —           |
 | title            | the title of the book     | `string`               | —           |
 | showToc          | whether to show the toc   | `boolean`              | true        |
-| backgroundColor  | backgroundColor of reader | `string`               | #fff        |
 
 ## VueReader Events
 | **Name** | **Description**           | **Type**               |

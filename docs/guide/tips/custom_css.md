@@ -23,5 +23,34 @@ const getRendition = async (rendition) => {
   renderer.setStyles(getCSS())
 }
 </script>
+<style scoped>
+:deep(.readerArea) {
+  background: #000;
+}
+:deep(.readerArea .titleArea) {
+  color: #ccc;
+}
+
+:deep(.readerArea .arrow) {
+  color: white;
+}
+
+:deep(.tocArea) {
+  color: #ccc;
+  background: #111;
+}
+
+:deep(.tocButtonExpanded) {
+  background: #222;
+}
+
+:deep(.tocButtonBar) {
+  background: #fff;
+}
+
+:deep(.tocButton) {
+  color: white;
+}
+</style>
 ```
 :::

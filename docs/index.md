@@ -8,9 +8,7 @@ titleTemplate: ePub component for Vue
 hero:
   name: vueBookReader
   text: an easy way to embed a reader into your webapp
-  tagline: vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.
-Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
-
+  tagline: vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
   image:
     src: /logo.png
     alt: VueBookReader

@@ -1,11 +1,16 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
+import { resolve } from 'path'
 import { name } from './package.json'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), libInjectCss()],
+  resolve: {
+    extensions: ['.ts', '.js'],
+    alias: [{ find: '@', replacement: resolve(__dirname, 'src') }],
+  },
   build: {
     copyPublicDir: false,
     emptyOutDir: true,
