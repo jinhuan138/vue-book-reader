@@ -25,31 +25,31 @@ const getRendition = async (rendition) => {
 </script>
 <style scoped>
 :deep(.readerArea) {
-  background: #000;
+  background: #000 !important;
 }
 :deep(.readerArea .titleArea) {
-  color: #ccc;
+  color: #ccc !important;
 }
 
 :deep(.readerArea .arrow) {
-  color: white;
+  color: white !important;
 }
 
 :deep(.tocArea) {
-  color: #ccc;
-  background: #111;
+  color: #ccc !important;
+  background: #111 !important;
 }
 
 :deep(.tocButtonExpanded) {
-  background: #222;
+  background: #222 !important;
 }
 
 :deep(.tocButtonBar) {
-  background: #fff;
+  background: #fff !important;
 }
 
 :deep(.tocButton) {
-  color: white;
+  color: white !important;
 }
 </style>
 ```
