@@ -95,6 +95,7 @@ const initBook = async () => {
   import('../utils/foliate-js/view.js')
     .then(async (res) => {
       view = document.createElement('foliate-view')
+      getRendition(view)
       viewer.value.append(view)
       if (url.value) {
         view && view.close()
@@ -123,9 +124,6 @@ const initReader = () => {
     }),
   )
   registerEvents()
-  view.addEventListener('load', () => {
-    getRendition(view)
-  })
   tocChanged && tocChanged(book.toc)
   if (location.value) {
     view?.goTo(location.value)

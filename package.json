@@ -1,6 +1,6 @@
 {
   "name": "vue-book-reader",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "type": "module",
   "main": "lib/vue-book-reader.umd.js",
   "module": "lib/vue-book-reader.es.js",
@@ -10,6 +10,7 @@
   "keywords": [
     "vue3",
     "reader",
+    "ebooks",
     "epub",
     "MOBI",
     "KF8",
