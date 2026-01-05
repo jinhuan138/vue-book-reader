@@ -93,9 +93,11 @@ const onRelocate = ({ detail }) => {
 const onGetRendition = (val) => {
   rendition = val
   getRendition && getRendition(rendition)
-  const { book } = rendition
-  const title = book.metadata?.title
-  bookName.value = title || ''
+  rendition.addEventListener('load', () => {
+    const { book } = rendition
+    const title = book.metadata?.title
+    bookName.value = title || ''
+  })
   rendition.addEventListener('relocate', onRelocate)
 }
 
@@ -276,6 +278,6 @@ defineExpose({
   right: 10%;
   color: #c00;
   text-align: center;
-  margin-top: -.5em;
+  margin-top: -0.5em;
 }
 </style>

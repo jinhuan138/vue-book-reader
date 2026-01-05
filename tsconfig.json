@@ -32,6 +32,6 @@
     "lib": ["esnext", "dom"]
   },
   "vueCompilerOptions": {},
-  "include": ["src/**/*.ts","src/**/*.tsx", "src/**/*.vue", "types/*.ts", "src/modules/utils/reader.js"],
+  "include": ["src/**/*.ts","src/**/*.tsx", "src/**/*.vue", "types/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -1,2 +1,3 @@
 packages:
   - docs
+  - src/packages/foliate-js
