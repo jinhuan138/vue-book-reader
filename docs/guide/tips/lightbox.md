@@ -25,25 +25,27 @@ const indexRef = ref(0)
 const visibleRef = ref(false)
 
 const getRendition = (rendition) => {
-  rendition.renderer.setStyles([
-    `img, image {
-     cursor: pointer;
-    }`
-  ])
-  const docs = rendition.renderer.getContents()
-  docs.forEach(({ doc }) => {
-    imgsRef.value = []
-    const imgs = [
-      ...doc.querySelectorAll('img'),
-      ...doc.querySelectorAll('image'),
-    ]
-    imgs.forEach((img, index) => {
-      img.addEventListener('click', () => {
-        visibleRef.value = true
-        indexRef.value = index
+  rendition.addEventListener('load', () => {
+    rendition.renderer.setStyles([
+      `img, image {
+      cursor: pointer;
+      }`
+    ])
+    const docs = rendition.renderer.getContents()
+    docs.forEach(({ doc }) => {
+      imgsRef.value = []
+      const imgs = [
+        ...doc.querySelectorAll('img'),
+        ...doc.querySelectorAll('image'),
+      ]
+      imgs.forEach((img, index) => {
+        img.addEventListener('click', () => {
+          visibleRef.value = true
+          indexRef.value = index
+        })
+        const src = img.getAttribute('src') || img.getAttribute('xlink:href')
+        imgsRef.value.push(src)
       })
-      const src = img.getAttribute('src') || img.getAttribute('xlink:href')
-      imgsRef.value.push(src)
     })
   })
 }

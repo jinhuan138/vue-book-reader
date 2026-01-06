@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      core-js:
+        specifier: ^3.47.0
+        version: 3.47.0
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
@@ -39,9 +43,12 @@ importers:
   docs:
     dependencies:
       vue-book-reader:
-        specifier: ^1.1.7
-        version: 1.1.7
+        specifier: ^1.2.0
+        version: 1.2.0
     devDependencies:
+      pdfjs-dist:
+        specifier: ^4.7.76
+        version: 4.10.38
       sass-embedded:
         specifier: ^1.92.1
         version: 1.92.1
@@ -1135,8 +1142,8 @@ packages:
     resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
     engines: {node: '>=12.13'}
 
-  core-js@3.45.1:
-    resolution: {integrity: sha512-L4NPsJlCfZsPeXukyzHFlg/i7IIVwHSItR0wg0FLNqYClJ4MQYTYLbC7EkjKYRLZF2iof2MUgN0EGy7MdQFChg==}
+  core-js@3.47.0:
+    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
@@ -1935,11 +1942,11 @@ packages:
       postcss:
         optional: true
 
-  vue-book-reader@1.1.7:
-    resolution: {integrity: sha512-AWt1VMjYM3qpF0ZYGqnukR0CkRFzcP6nOcoirZiZRp33V/bWK6eshgNuh+OWf2o+2JS5W/TAn5Tr5/o0diFNYQ==}
-
   vue-book-reader@1.1.8:
     resolution: {integrity: sha512-uXEREj8gPZnVZ45d1moZ+NQv0T+4C/ZR/pGX7TnXLPZlCVqPG6Ms9XogXP4OE5owMYN6p4o/9CoaNblnynIfdw==}
+
+  vue-book-reader@1.2.0:
+    resolution: {integrity: sha512-KVbT63/f7z2QitocyxhLWFkFvo9UgKxaNFvHO00zz2H+HXP5FWGQ+siFbJWHt/p9qNv502RibJnymsUgPr0Ubg==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -2962,7 +2969,7 @@ snapshots:
     dependencies:
       is-what: 4.1.16
 
-  core-js@3.45.1: {}
+  core-js@3.47.0: {}
 
   csstype@3.1.3: {}
 
@@ -4037,11 +4044,11 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vue-book-reader@1.1.7:
-    dependencies:
-      core-js: 3.45.1
-
   vue-book-reader@1.1.8: {}
+
+  vue-book-reader@1.2.0:
+    dependencies:
+      core-js: 3.47.0
 
   vue-demi@0.14.10(vue@3.5.13(typescript@5.7.3)):
     dependencies:

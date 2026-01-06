@@ -29,10 +29,12 @@ import { ref } from 'vue'
 
 const information = ref(null)
 const getRendition = (rendition) => {
-  const { book } = rendition
-  information.value =  book.metadata
-  book.getCover?.().then((blob) => {
-    information.value.cover = URL.createObjectURL(blob)
+  rendition.addEventListener('load', () => {
+      const { book } = rendition
+      information.value =  book.metadata
+      book.getCover?.().then((blob) => {
+        information.value.cover = URL.createObjectURL(blob)
+      })
   })
 }
 </script>
