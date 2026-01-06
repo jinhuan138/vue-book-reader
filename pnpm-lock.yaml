@@ -7,14 +7,13 @@ settings:
 importers:
 
   .:
-    dependencies:
-      core-js:
-        specifier: ^3.45.1
-        version: 3.45.1
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
         version: 5.0.4(vite@5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.4.21(typescript@5.7.3))
+      pdfjs-dist:
+        specifier: ^4.7.76
+        version: 4.10.38
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -31,8 +30,8 @@ importers:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.7.3)
       vue-book-reader:
-        specifier: ^1.1.7
-        version: 1.1.7
+        specifier: ^1.1.8
+        version: 1.1.8
       vue-tsc:
         specifier: ^2.0.6
         version: 2.0.13(typescript@5.7.3)
@@ -56,7 +55,7 @@ importers:
         specifier: ^1.19.0
         version: 1.19.0(vue@3.5.13(typescript@5.7.3))
 
-  src/packages/utils/foliate-js:
+  src/packages/foliate-js:
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.1
@@ -1938,6 +1937,9 @@ packages:
 
   vue-book-reader@1.1.7:
     resolution: {integrity: sha512-AWt1VMjYM3qpF0ZYGqnukR0CkRFzcP6nOcoirZiZRp33V/bWK6eshgNuh+OWf2o+2JS5W/TAn5Tr5/o0diFNYQ==}
+
+  vue-book-reader@1.1.8:
+    resolution: {integrity: sha512-uXEREj8gPZnVZ45d1moZ+NQv0T+4C/ZR/pGX7TnXLPZlCVqPG6Ms9XogXP4OE5owMYN6p4o/9CoaNblnynIfdw==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -4038,6 +4040,8 @@ snapshots:
   vue-book-reader@1.1.7:
     dependencies:
       core-js: 3.45.1
+
+  vue-book-reader@1.1.8: {}
 
   vue-demi@0.14.10(vue@3.5.13(typescript@5.7.3)):
     dependencies:

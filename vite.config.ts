@@ -11,7 +11,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default defineConfig({
   plugins: [vue(), libInjectCss()],
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js','mjs'],
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') }],
   },
   build: {
