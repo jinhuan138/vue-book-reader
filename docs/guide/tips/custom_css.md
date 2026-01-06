@@ -10,7 +10,7 @@
 <script setup>
 //just need import { VueReader } from 'vue-book-reader'
 import { defineClientComponent } from 'vitepress'
-const VueReader = defineClientComponent(() => import('../../../src/packages/index.ts'))
+const VueReader = defineClientComponent(() => import('vue-book-reader'))
 const getCSS = (style) => [
   `
     html {
