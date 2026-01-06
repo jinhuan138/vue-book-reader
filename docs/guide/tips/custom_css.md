@@ -10,7 +10,7 @@
 <script setup>
 //just need import { VueReader } from 'vue-book-reader'
 import { defineClientComponent } from 'vitepress'
-const VueReader = defineClientComponent(() => import('vue-book-reader'))
+const VueReader = defineClientComponent(() => import('../../../src/packages/index.ts'))
 const getCSS = (style) => [
   `
     html {
@@ -18,9 +18,10 @@ const getCSS = (style) => [
       color: #fff;
     }`,
 ]
-const getRendition = async (rendition) => {
-  const { book, renderer } = rendition
-  renderer.setStyles(getCSS())
+const getRendition = (rendition) => {
+  rendition.addEventListener('load', () => {
+    rendition.renderer.setStyles(getCSS())
+  })
 }
 </script>
 <style scoped>

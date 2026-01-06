@@ -11,8 +11,10 @@
 import { defineClientComponent } from 'vitepress'
 const VueReader = defineClientComponent(() => import('vue-book-reader'))
 const getRendition = (rendition) => {
-  rendition.renderer.setAttribute('flow', 'scrolled')
-  // rendition.renderer.setAttribute('flow', 'paginated')
+   rendition.addEventListener('load', () => {
+      rendition.renderer.setAttribute('flow', 'scrolled')
+      // rendition.renderer.setAttribute('flow', 'paginated')
+  })
 }
 </script>
 ```

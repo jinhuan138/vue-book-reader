@@ -72,6 +72,9 @@ export default defineConfig({
               }, {
                 text: "lightbox",
                 link: "tips/lightbox",
+              },{
+                text: "pdf file",
+                link: "tips/pdf_file",
               },
             ],
           },

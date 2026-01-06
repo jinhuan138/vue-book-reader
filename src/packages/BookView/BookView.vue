@@ -20,17 +20,18 @@ import {
   keyListener,
 } from '../utils/listener/listener'
 import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
+import 'core-js/proposals/array-grouping-v2'
 if (typeof Promise.withResolvers === 'undefined') {
   if (window)
     // @ts-expect-error This does not exist outside of polyfill which this is doing
     window.Promise.withResolvers = function () {
-      let resolve, reject;
+      let resolve, reject
       const promise = new Promise((res, rej) => {
-        resolve = res;
-        reject = rej;  
-      });
-      return { promise, resolve, reject };
-    };
+        resolve = res
+        reject = rej
+      })
+      return { promise, resolve, reject }
+    }
 }
 const props = defineProps({
   url: {
@@ -54,16 +55,16 @@ const isLoaded = ref(false)
 const isError = ref(false)
 
 const initBook = async () => {
-  if (!customElements.get('foliate-view')) {
-    await import('../foliate-js/view.js')
-    view = document.createElement('foliate-view')
-    viewer.value.append(view)
-  }
   try {
     if (url.value) {
-      view && view.close()
-      await view?.open(url.value)
-      getRendition(view)
+      if (view) {
+        view.close()
+      } else {
+        view = document.createElement('foliate-view')
+        getRendition(view)
+        viewer.value.append(view)
+      }
+      await view.open(url.value)
       initReader()
     }
   } catch (error) {
@@ -118,7 +119,10 @@ watch(url, () => {
   initBook()
 })
 
-onMounted(() => {
+onMounted(async () => {
+  if (!customElements.get('foliate-view')) {
+    await import('../foliate-js/view.js')
+  }
   initBook()
 })
 
