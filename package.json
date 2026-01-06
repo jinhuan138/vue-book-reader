@@ -1,6 +1,6 @@
 {
   "name": "vue-book-reader",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "type": "module",
   "main": "lib/vue-book-reader.umd.js",
   "module": "lib/vue-book-reader.es.js",
@@ -16,8 +16,7 @@
     "KF8",
     "AZW3",
     "FB2",
-    "CBZ",
-    "PDF"
+    "CBZ"
   ],
   "homepage": "https://jinhuan138.github.io/vue-book-reader/",
   "repository": {
@@ -37,20 +36,18 @@
   "license": "ISC",
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "pdfjs-dist": "^4.7.76",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
     "vite": "^5.4.20",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vue": "^3.4.21",
-    "vue-book-reader": "^1.1.7",
+    "vue-book-reader": "^1.1.8",
     "vue-tsc": "^2.0.6"
   },
   "browser": {
     "canvas": false
   },
   "packageManager": "pnpm@9.6.0",
-  "preinstall": "npx only-allow pnpm",
-  "dependencies": {
-    "core-js": "^3.45.1"
-  }
+  "preinstall": "npx only-allow pnpm"
 }

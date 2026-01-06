@@ -13,8 +13,6 @@
 <script setup>
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
-
-import 'core-js/proposals/array-grouping-v2'
 import {
   clickListener,
   swipListener,
@@ -22,15 +20,18 @@ import {
   keyListener,
 } from '../utils/listener/listener'
 import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
-window.Promise.withResolvers = function () {
-  let resolve, reject
-  const promise = new Promise((res, rej) => {
-    resolve = res
-    reject = rej
-  })
-  return { resolve, reject, promise }
+if (typeof Promise.withResolvers === 'undefined') {
+  if (window)
+    // @ts-expect-error This does not exist outside of polyfill which this is doing
+    window.Promise.withResolvers = function () {
+      let resolve, reject;
+      const promise = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;  
+      });
+      return { promise, resolve, reject };
+    };
 }
-
 const props = defineProps({
   url: {
     type: [String, File],
@@ -52,77 +53,28 @@ const viewer = ref(null)
 const isLoaded = ref(false)
 const isError = ref(false)
 
-const getCSS = ({ spacing, justify, hyphenate }) => `
-    @namespace epub "http://www.idpf.org/2007/ops";
-    html {
-        color-scheme: light dark;
-    }
-    /* https://github.com/whatwg/html/issues/5426 */
-    @media (prefers-color-scheme: dark) {
-        a:link {
-            color: lightblue;
-        }
-    }
-    p, li, blockquote, dd {
-        line-height: ${spacing};
-        text-align: ${justify ? 'justify' : 'start'};
-        -webkit-hyphens: ${hyphenate ? 'auto' : 'manual'};
-        hyphens: ${hyphenate ? 'auto' : 'manual'};
-        -webkit-hyphenate-limit-before: 3;
-        -webkit-hyphenate-limit-after: 2;
-        -webkit-hyphenate-limit-lines: 2;
-        hanging-punctuation: allow-end last;
-        widows: 2;
-    }
-    /* prevent the above from overriding the align attribute */
-    [align="left"] { text-align: left; }
-    [align="right"] { text-align: right; }
-    [align="center"] { text-align: center; }
-    [align="justify"] { text-align: justify; }
-
-    pre {
-        white-space: pre-wrap !important;
-    }
-    aside[epub|type~="endnote"],
-    aside[epub|type~="footnote"],
-    aside[epub|type~="note"],
-    aside[epub|type~="rearnote"] {
-        display: none;
-    }
-`
-
 const initBook = async () => {
-  import('../utils/foliate-js/view.js')
-    .then(async () => {
-      view = document.createElement('foliate-view')
-      viewer.value.append(view)
-      if (url.value) {
-        view && view.close()
-        try {
-          await view.open(url.value)
-          getRendition(view)
-          initReader()
-        } catch (error) {
-          console.error('Error opening book:', error)
-          isError.value = true
-        }
-      }
-    })
-    .catch((error) => {
-      console.error('Error opening book:', error)
-    })
+  if (!customElements.get('foliate-view')) {
+    await import('../foliate-js/view.js')
+    view = document.createElement('foliate-view')
+    viewer.value.append(view)
+  }
+  try {
+    if (url.value) {
+      view && view.close()
+      await view?.open(url.value)
+      getRendition(view)
+      initReader()
+    }
+  } catch (error) {
+    console.error('Error opening book:', error)
+    isError.value = true
+  }
 }
 
 const initReader = () => {
   isLoaded.value = true
   const { book } = view
-  view.renderer.setStyles?.(
-    getCSS({
-      spacing: 1.4,
-      justify: true,
-      hyphenate: true,
-    }),
-  )
   registerEvents()
   tocChanged && tocChanged(book.toc)
   if (location.value) {
