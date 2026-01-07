@@ -61,10 +61,10 @@ const initBook = async () => {
         view.close()
       } else {
         view = document.createElement('foliate-view')
-        getRendition(view)
         viewer.value.append(view)
       }
       await view.open(url.value)
+      getRendition(view)
       initReader()
     }
   } catch (error) {

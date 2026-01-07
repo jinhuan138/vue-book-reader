@@ -11,10 +11,8 @@
 import { defineClientComponent } from 'vitepress'
 const VueReader = defineClientComponent(() => import('vue-book-reader'))
 const getRendition = (rendition) => {
-   rendition.addEventListener('load', () => {
-      rendition.renderer.setAttribute('animated', '')
-      //rendition.value.renderer.removeAttribute('animated')
-  })
+   rendition.renderer.setAttribute('animated', '')
+   //rendition.value.renderer.removeAttribute('animated')
 }
 </script>
 ```

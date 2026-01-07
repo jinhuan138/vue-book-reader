@@ -43,8 +43,8 @@ importers:
   docs:
     dependencies:
       vue-book-reader:
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.2.2
+        version: 1.2.2
     devDependencies:
       pdfjs-dist:
         specifier: ^4.7.76
@@ -1945,8 +1945,8 @@ packages:
   vue-book-reader@1.1.8:
     resolution: {integrity: sha512-uXEREj8gPZnVZ45d1moZ+NQv0T+4C/ZR/pGX7TnXLPZlCVqPG6Ms9XogXP4OE5owMYN6p4o/9CoaNblnynIfdw==}
 
-  vue-book-reader@1.2.0:
-    resolution: {integrity: sha512-KVbT63/f7z2QitocyxhLWFkFvo9UgKxaNFvHO00zz2H+HXP5FWGQ+siFbJWHt/p9qNv502RibJnymsUgPr0Ubg==}
+  vue-book-reader@1.2.2:
+    resolution: {integrity: sha512-bQ4f3PS4S/b+i+Vjvo/bfY45cSm/ZgXFK4RzTTzUVx6SerUCH948PuidZdmTW1LGihQOP17V1O5qJUjPb+rmwg==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -4046,7 +4046,7 @@ snapshots:
 
   vue-book-reader@1.1.8: {}
 
-  vue-book-reader@1.2.0:
+  vue-book-reader@1.2.2:
     dependencies:
       core-js: 3.47.0
 
