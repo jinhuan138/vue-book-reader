@@ -25,12 +25,12 @@ const indexRef = ref(0)
 const visibleRef = ref(false)
 
 const getRendition = (rendition) => {
-   rendition.renderer.setStyles([
-      `img, image {
-      cursor: pointer;
-      }`
-  ])
   rendition.addEventListener('load', () => {
+    rendition.renderer.setStyles([
+      `img, image {
+        cursor: pointer;
+      }`
+    ])
     const docs = rendition.renderer.getContents()
     docs.forEach(({ doc }) => {
       imgsRef.value = []
