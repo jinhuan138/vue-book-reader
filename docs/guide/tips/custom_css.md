@@ -19,7 +19,9 @@ const getCSS = (style) => [
     }`,
 ]
 const getRendition = (rendition) => {
-  rendition.renderer.setStyles(getCSS())
+  rendition.addEventListener('load', () => {
+    rendition.renderer.setStyles(getCSS())
+  })
 }
 </script>
 <style scoped>
