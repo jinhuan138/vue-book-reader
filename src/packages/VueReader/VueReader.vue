@@ -50,15 +50,12 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import BookView from '../BookView/BookView.vue'
 import Toc from './Toc.vue'
-import { ref, reactive, toRefs } from 'vue'
-
+import { ref, reactive, toRefs, useTemplateRef } from 'vue'
+type BookViewType = InstanceType<typeof BookView>
 const props = defineProps({
-  title: {
-    type: String,
-  },
   showToc: {
     type: Boolean,
     default: true,
@@ -81,12 +78,12 @@ const { getRendition } = props
 
 const { toc, expandedToc } = toRefs(book)
 
-const bookRef = ref(null)
+const bookRef = useTemplateRef<BookViewType>('bookRef')
 const currentHref = ref(null)
 
 const bookName = ref('')
 
-let rendition = null
+let rendition: any = null
 const onRelocate = ({ detail }) => {
   currentHref.value = detail.tocItem?.href
 }
@@ -110,14 +107,14 @@ const toggleToc = () => {
 }
 
 const next = () => {
-  bookRef.value?.nextPage()
+  bookRef.value!.nextPage()
 }
 const pre = () => {
-  bookRef.value?.prevPage()
+  bookRef.value!.prevPage()
 }
 
 const setLocation = (href, close = true) => {
-  bookRef.value.setLocation(href)
+  bookRef.value!.setLocation(href)
   expandedToc.value = !close
 }
 

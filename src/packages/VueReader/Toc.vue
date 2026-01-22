@@ -30,7 +30,7 @@
 import { ref, watchEffect, toRefs } from 'vue'
 export interface TocProps {
   toc: Array<any>
-  current: string | number | undefined
+  current: string | number | null
   setLocation: (href: string | number, close?: boolean) => void
   isSubmenu?: boolean
 }

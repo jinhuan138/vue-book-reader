@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 //https://github.com/johnfactotum/foliate-js
 //https://github.com/johnfactotum/foliate
 import {
@@ -21,6 +21,17 @@ import {
 } from '../utils/listener/listener'
 import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
 import 'core-js/proposals/array-grouping-v2'
+interface FoliateViewElement extends HTMLElement {
+  open: (url: string | File) => Promise<void>
+  close: () => void
+  goTo: (location: string | number) => void
+  next: () => void
+  prev: () => void
+  renderer: any
+  book: {
+    toc: any[]
+  }
+}
 if (typeof Promise.withResolvers === 'undefined') {
   if (window)
     // @ts-expect-error This does not exist outside of polyfill which this is doing
@@ -36,6 +47,7 @@ if (typeof Promise.withResolvers === 'undefined') {
 const props = defineProps({
   url: {
     type: [String, File],
+    required: true,
   },
   location: {
     type: [String, Number],
@@ -49,22 +61,21 @@ const { url, location } = toRefs(props)
 
 const emit = defineEmits(['update:location'])
 
-let view = null
-const viewer = ref(null)
-const isLoaded = ref(false)
-const isError = ref(false)
-
+let view: null | FoliateViewElement = null
+const viewer = ref<HTMLElement | null>(null)
+const isLoaded = ref<boolean>(false)
+const isError = ref<boolean>(false)
 const initBook = async () => {
   try {
-    if (url.value) {
+    if (url?.value) {
       if (view) {
         view.close()
       } else {
-        view = document.createElement('foliate-view')
-        viewer.value.append(view)
+        view = document.createElement('foliate-view') as FoliateViewElement
+        viewer.value!.append(view)
       }
       await view.open(url.value)
-      getRendition(view)
+      getRendition && getRendition(view)
       initReader()
     }
   } catch (error) {
@@ -75,13 +86,13 @@ const initBook = async () => {
 
 const initReader = () => {
   isLoaded.value = true
-  const { book } = view
+  const { book } = view as FoliateViewElement
   registerEvents()
   tocChanged && tocChanged(book.toc)
-  if (location.value) {
+  if (location && location.value) {
     view?.goTo(location.value)
   } else {
-    view.renderer.next()
+    view!.renderer.next()
   }
 }
 
@@ -91,8 +102,8 @@ const flipPage = (direction) => {
 }
 
 const registerEvents = () => {
-  view.addEventListener('load', onLoad)
-  view.addEventListener('relocate', onRelocate)
+  view!.addEventListener('load', onLoad)
+  view!.addEventListener('relocate', onRelocate)
 }
 
 const onLoad = ({ detail: { doc } }) => {

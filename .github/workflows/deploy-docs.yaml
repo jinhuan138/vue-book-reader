@@ -1,10 +1,10 @@
 name: Deploy vscode-book-reader to Pages
 
 on:
-  # 在针对 `main` 分支的推送上运行
-  # 如果是使用 `master` 分支作为默认分支，请将其更改为 `master`
+  # 只在推送 tag 时运行
   push:
-    branches: [master]
+    tags:
+      - '*'
 
   # 允许你从 Actions 选项卡手动运行此工作流程
   workflow_dispatch:
