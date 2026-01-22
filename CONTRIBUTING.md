@@ -39,7 +39,7 @@ PDF.js has been removed from the core library to optimize for Vite build and red
 ...
 ```
 
-## Development rue-book-reader
+## Development vue-book-reader
 
 ```bash
 pnpm dev
