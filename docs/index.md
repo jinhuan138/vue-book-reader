@@ -21,7 +21,7 @@ hero:
       theme: alt
 features:
 
-  - icon: 🔍
+  - icon: 📚
     title: Multi-Format Support
     details: Support EPUB, MOBI, KF8 (AZW3), FB2, CBZ, TXT, PDF (experimental)
   - icon: 🔍
@@ -34,6 +34,6 @@ features:
     title: Scroll/Page View Modes
     details: Switch between scrolling or paginated reading modes
   - icon: ⌨️
-    title: keyboard events
+    title: Keyboard events
     details: Use ⬆️⬇️⬅️➡️ to turn the page
 ---

@@ -1,6 +1,6 @@
 <div align="center">
   <img width=250 src="https://raw.githubusercontent.com/jinhuan138/vue--book-reader/master/public/logo.png" />
-  <h1>VueReader</h1>
+  <h1>VueBookReader</h1>
 </div>
 
 <p>

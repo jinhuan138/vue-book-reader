@@ -24,7 +24,7 @@ import 'core-js/proposals/array-grouping-v2'
 interface FoliateViewElement extends HTMLElement {
   open: (url: string | File) => Promise<void>
   close: () => void
-  goTo: (location: string | number) => void
+  goTo: (href: string | number) => void
   next: () => void
   prev: () => void
   renderer: any

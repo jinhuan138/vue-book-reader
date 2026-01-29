@@ -9,6 +9,7 @@
   ],
   "keywords": [
     "vue3",
+    "ebook",
     "reader",
     "ebooks",
     "epub",
@@ -24,6 +25,7 @@
     "url": "git@github.com:jinhuan138/vue-book-reader.git"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
@@ -49,7 +51,7 @@
     "canvas": false
   },
   "packageManager": "pnpm@9.6.0",
-  "preinstall": "npx only-allow pnpm",
+  
   "dependencies": {
     "core-js": "^3.47.0"
   }

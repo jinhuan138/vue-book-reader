@@ -10,11 +10,11 @@ an vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - li
 
 ::: code-group
 ```sh [npm]
-npm i vue-book-reader
+npm install vue-book-reader --save
 ```
 
 ```sh [pnpm]
-pnpm add vue-book-reader
+pnpm add vue-book-reader --save
 ```
 :::
 
@@ -32,8 +32,6 @@ And in your vue-component...
 import { VueReader } from 'vue-reader'
 </script>
 ```
-
-
 :::
 
 ## Different Builds
