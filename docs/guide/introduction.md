@@ -47,19 +47,20 @@ import { VueReader } from 'vue-book-reader'
 
 ### VueReader Attributes
 
-| **Name** | **Description**                   | **Type**               | **Default** |
-| -------- | --------------------------------- | ---------------------- | ----------- |
-| url      | book url or File                  | `string`/`File`        | —           |
-| location | set / update location of the book | `string`/`number`      | —           |
-| title    | the title of the book             | `string`               | —           |
-| showToc  | whether to show the toc           | `boolean`              | true        |
+| **Name** | **Description**                   | **Type**                              | **Default** |
+| -------- | --------------------------------- | ------------------------------------- | ----------- |
+| url      | book url or File                  | `string`/`File`                       | —           |
+| location | set / update location of the book | `string`/`number`                     | —           |
+| title    | the title of the book             | `string`                              | —           |
+| showToc  | whether to show the toc           | `boolean`                             | true        |
+| [BookView Attributes](#bookview-attributes)  |  BookView attributes all can be used. | -           |
 
 ### VueReader Slots
 
-| **Name**                               | **Description**                   |
-| -------------------------------------- | --------------------------------- |
-| title                                  |  book title                       |
-| [BookView slots](#bookview-slots)      |  BookView slots all can be used.  |
+| **Name**                          | **Description**                   |
+| --------------------------------- | --------------------------------- |
+| title                             |  book title                       |
+| [BookView slots](#bookview-slots) |  BookView slots all can be used.  |
 
 ### VueReader Exposes
 | **Name**                              | **Description**                     |

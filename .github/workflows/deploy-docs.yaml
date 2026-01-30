@@ -3,7 +3,6 @@ name: Deploy vscode-book-reader to Pages
 on:
   # 在针对 `master` 分支的推送上运行
   push:
-  push:
     branches: [master]
     paths:
       - 'docs/**'  # 只有 docs 目录下的文件变更时才触发
