@@ -22,6 +22,7 @@ pnpm add vue-book-reader --save
 
 And in your vue-component...
 
+:::demo
 ```vue
 <template>
    <div style='height: 100vh'>

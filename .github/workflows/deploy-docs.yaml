@@ -4,7 +4,7 @@ on:
   # 只在推送 tag 时运行
   push:
     tags:
-      - '*'
+      - 'v*'
 
   # 允许你从 Actions 选项卡手动运行此工作流程
   workflow_dispatch:
