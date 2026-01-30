@@ -45,7 +45,9 @@ import { VueReader } from 'vue-book-reader'
 </script>
 ```
 
-## VueReader Attributes
+## VueReader API
+
+### VueReader Attributes
 
 | **Name** | **Description**                   | **Type**               | **Default** |
 | -------- | --------------------------------- | ---------------------- | ----------- |
@@ -54,14 +56,35 @@ import { VueReader } from 'vue-book-reader'
 | title    | the title of the book             | `string`               | —           |
 | showToc  | whether to show the toc           | `boolean`              | true        |
 
-## VueReader Slots
+### VueReader Slots
 
-| **Name** | **Description**                                                                     |
-| -------- | ----------------------------------------------------------------------------------- |
-| title    | You have access to title by [slot](https://v3.vuejs.org/guide/component-slots.html) |
-| loadingView | epub view loadingView                                                            |
+| **Name**                               | **Description**                   |
+| -------------------------------------- | --------------------------------- |
+| title                                  |  book title                       |
+| [BookView slots](## BookView Slots)    |  BookView slots all can be used.  |
 
-## EpubView Exposes
+### VueReader Exposes
+| **Name**    | **Description**            | **Type**                            |
+| ----------- | -------------------------- | ----------------------------------- |
+| [BookView Exposes](## BookView Exposes)  |  BookView exposes all can be used.  |
+
+## BookView API
+
+### BookView Attributes
+
+| **Name**   | **Description**                   | **Type**                | **Default**      |
+| ---------- | --------------------------------- | ----------------------- | ---------------- |
+| url        | book url or File                                            | `string`/`File`  |
+| tocChanged | get an array representing the table of contents of the book | `function(href)` | 
+
+### BookView Slots
+
+| **Name**    | **Description**          |
+| ----------- | ------------------------ |
+| loadingView | BookView loadingView     |
+| errorView   | BookView loadingView     |
+
+### BookView Exposes
 
 | **Name**    | **Description**        | **Type**         |
 | ----------- | ---------------------- | ---------------- |

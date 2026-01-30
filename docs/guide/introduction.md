@@ -44,51 +44,46 @@ import { VueReader } from 'vue-reader'
 
 ## VueReader Attributes
 
-| **Name**         | **Description**           | **Type**               | **Default** |
-| -----------------| --------------------------| ---------------------- | ----------- |
-| url              | book url or arrayBuffer   | `string`/`ArrayBuffer` | —           |
-| title            | the title of the book     | `string`               | —           |
-| showToc          | whether to show the toc   | `boolean`              | true        |
+## VueReader API
 
-## VueReader Events
-| **Name** | **Description**           | **Type**               |
-| -------- | -----------------------   | ---------------------- |
-| progress | book url request progress | function(percentage)   |
+### VueReader Attributes
 
-## VueReader Slots
+| **Name** | **Description**                   | **Type**               | **Default** |
+| -------- | --------------------------------- | ---------------------- | ----------- |
+| url      | book url or File                  | `string`/`File`        | —           |
+| location | set / update location of the book | `string`/`number`      | —           |
+| title    | the title of the book             | `string`               | —           |
+| showToc  | whether to show the toc           | `boolean`              | true        |
 
-| **Name** | **Description**                                                                     |
-| -------- | ----------------------------------------------------------------------------------- |
-| title    | You have access to title by [slot](https://v3.vuejs.org/guide/component-slots.html) |
+### VueReader Slots
 
-## VueReader props passed to inner EpubView
+| **Name**                               | **Description**                   |
+| -------------------------------------- | --------------------------------- |
+| title                                  |  book title                       |
+| [BookView slots](## BookView Slots)    |  BookView slots all can be used.  |
 
-## EpubView Attributes
+### VueReader Exposes
+| **Name**    | **Description**            | **Type**                            |
+| ----------- | -------------------------- | ----------------------------------- |
+| [BookView Exposes](## BookView Exposes)  |  BookView exposes all can be used.  |
 
-| **Name**        | **Description**                                                                                                                      | **Type**               | **Default** |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ----------- |
-| url             | the path or arrayBuffer of the book                                                                                                  | `string`/`ArrayBuffer` | —           |
-| location        | set / update location of the epub                                                                                                    | `string`/`number`      | —           |
-| tocChanged      | when the reader has parsed the book you will receive an array of the chapters                                                        | `function(toc)`        | —           |
-| epubInitOptions | pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)                           | `object`               | —           |
-| epubOptions     | pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#rendition) | `object`               | —           |
-| getRendition    | when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here                                        | `function(rendition)`  | —           |
+## BookView API
 
-## EpubView Events
+### BookView Attributes
 
-| **Name**        | **Description**                                                                                                                                          | **Type**                      |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| update:location | a function that receives the current location while user is reading. This function is called everytime the page changes, and also when it first renders. | `function(location)`          |
-| select          | when select text                                                                                                                                         | `function(cfirange,contents)` |
-| keyPress        | when press the key                                                                                                                                       | `function(keyboardEvent)`     |
+| **Name**   | **Description**                   | **Type**                | **Default**      |
+| ---------- | --------------------------------- | ----------------------- | ---------------- |
+| url        | book url or File                                            | `string`/`File`  |
+| tocChanged | get an array representing the table of contents of the book | `function(href)` | 
 
-## EpubView  Slots
+### BookView Slots
 
-| **Name**    | **Description**       |
-| ----------- | --------------------- |
-| loadingView | epub view loadingView |
+| **Name**    | **Description**          |
+| ----------- | ------------------------ |
+| loadingView | BookView loadingView     |
+| errorView   | BookView loadingView     |
 
-## EpubView Exposes
+### BookView Exposes
 
 | **Name**    | **Description**        | **Type**         |
 | ----------- | ---------------------- | ---------------- |
