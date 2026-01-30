@@ -37,7 +37,7 @@ And in your vue-component...
 ```vue
 <template>
   <div style="height: 100vh">
-    <vue-reader url="/files/啼笑因缘.epub" />
+    <vue-reader url="/vue-book-reader/files/啼笑因缘.epub" />
   </div>
 </template>
 <script setup>
@@ -61,12 +61,12 @@ import { VueReader } from 'vue-book-reader'
 | **Name**                               | **Description**                   |
 | -------------------------------------- | --------------------------------- |
 | title                                  |  book title                       |
-| [BookView slots](## BookView Slots)    |  BookView slots all can be used.  |
+| [BookView slots](#BookView-Slots)      |  BookView slots all can be used.  |
 
 ### VueReader Exposes
 | **Name**    | **Description**            | **Type**                            |
 | ----------- | -------------------------- | ----------------------------------- |
-| [BookView Exposes](## BookView Exposes)  |  BookView exposes all can be used.  |
+| [BookView Exposes](#BookView-Exposes)    |  BookView exposes all can be used.  |
 
 ## BookView API
 

@@ -26,11 +26,11 @@ And in your vue-component...
 ```vue
 <template>
    <div style='height: 100vh'>
-      <vue-reader url='/vue-reader/files/啼笑因缘.epub'/>
+      <!-- <vue-reader url='/vue-book-reader/files/啼笑因缘.epub'/> -->
    </div>
 </template>
 <script setup>
-import { VueReader } from 'vue-reader'
+import { VueReader } from 'vue-book-reader'
 </script>
 ```
 :::
@@ -38,12 +38,10 @@ import { VueReader } from 'vue-reader'
 ## Different Builds
 
 |       **Module**        |       **Filename**        |
-| :---------------------: | :-----------------------: |
+| ----------------------- | ------------------------- |
 |    UMD(for browsers)    | vue-book-reader.umd.js    |
-|        CommonJS         |     vue-reader.cjs.js     |
-| ES Module(for bundlers) |     vue-reader.es.js      |
-
-## VueReader Attributes
+|        CommonJS         | vue--book-reader.cjs.js   |
+| ES Module(for bundlers) | vue--book-reader.es.js    |
 
 ## VueReader API
 
@@ -61,13 +59,12 @@ import { VueReader } from 'vue-reader'
 | **Name**                               | **Description**                   |
 | -------------------------------------- | --------------------------------- |
 | title                                  |  book title                       |
-| [BookView slots](## BookView Slots)    |  BookView slots all can be used.  |
+| [BookView slots](#bookview-slots)      |  BookView slots all can be used.  |
 
 ### VueReader Exposes
-| **Name**    | **Description**            | **Type**                            |
-| ----------- | -------------------------- | ----------------------------------- |
-| [BookView Exposes](## BookView Exposes)  |  BookView exposes all can be used.  |
-
+| **Name**                              | **Description**                     |
+| ------------------------------------- | ----------------------------------- | 
+| [BookView Exposes](#bookview-exposes) |  BookView exposes all can be used.  |
 ## BookView API
 
 ### BookView Attributes
@@ -91,3 +88,9 @@ import { VueReader } from 'vue-reader'
 | nextPage    | display  next page     | `function`       |
 | prevPage    | display  previous page | `function`       |
 | setLocation | Set the page           | `function(href)` |
+
+<style>
+html:focus-within {
+  scroll-behavior: smooth;
+}
+</style>
