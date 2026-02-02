@@ -12,9 +12,12 @@ importers:
         specifier: ^3.47.0
         version: 3.47.0
     devDependencies:
+      '@types/node':
+        specifier: ^25.2.0
+        version: 25.2.0
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
-        version: 5.0.4(vite@7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0))(vue@3.5.27(typescript@5.7.3))
+        version: 5.0.4(vite@7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0))(vue@3.5.27(typescript@5.7.3))
       pdfjs-dist:
         specifier: ^4.7.76
         version: 4.10.38
@@ -26,10 +29,10 @@ importers:
         version: 5.7.3
       vite:
         specifier: ^7.3.1
-        version: 7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)
+        version: 7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)
       vite-plugin-lib-inject-css:
         specifier: ^2.2.2
-        version: 2.2.2(vite@7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0))
+        version: 2.2.2(vite@7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0))
       vue:
         specifier: ^3.5.27
         version: 3.5.27(typescript@5.7.3)
@@ -46,6 +49,9 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
     devDependencies:
+      '@types/node':
+        specifier: ^25.2.0
+        version: 25.2.0
       pdfjs-dist:
         specifier: ^4.7.76
         version: 4.10.38
@@ -54,10 +60,10 @@ importers:
         version: 1.92.1
       vitepress:
         specifier: ^1.3.3
-        version: 1.3.3(@algolia/client-search@5.19.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3)
+        version: 1.3.3(@algolia/client-search@5.19.0)(@types/node@25.2.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3)
       vitepress-theme-demoblock:
         specifier: ^3.1.3
-        version: 3.1.3(@algolia/client-search@5.19.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3)
+        version: 3.1.3(@algolia/client-search@5.19.0)(@types/node@25.2.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3)
       vue-easy-lightbox:
         specifier: ^1.19.0
         version: 1.19.0(vue@3.5.27(typescript@5.7.3))
@@ -1015,6 +1021,9 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
+
+  '@types/node@25.2.0':
+    resolution: {integrity: sha512-DZ8VwRFUNzuqJ5khrvwMXHmvPe+zGayJhr2CDNiKB1WBE1ST8Djl00D0IC4vvNmHMdj6DlbYRIaFE7WHjlDl5w==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -2018,6 +2027,9 @@ packages:
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
+  undici-types@7.16.0:
+    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
+
   unicorn-magic@0.1.0:
     resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
     engines: {node: '>=18'}
@@ -2953,6 +2965,10 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
+  '@types/node@25.2.0':
+    dependencies:
+      undici-types: 7.16.0
+
   '@types/resolve@1.20.2': {}
 
   '@types/unist@2.0.11': {}
@@ -2965,14 +2981,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.1': {}
 
-  '@vitejs/plugin-vue@5.0.4(vite@7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0))(vue@3.5.27(typescript@5.7.3))':
+  '@vitejs/plugin-vue@5.0.4(vite@7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0))(vue@3.5.27(typescript@5.7.3))':
     dependencies:
-      vite: 7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)
+      vite: 7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)
       vue: 3.5.27(typescript@5.7.3)
 
-  '@vitejs/plugin-vue@5.2.1(vite@5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.5.27(typescript@5.7.3))':
+  '@vitejs/plugin-vue@5.2.1(vite@5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.5.27(typescript@5.7.3))':
     dependencies:
-      vite: 5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)
+      vite: 5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)
       vue: 3.5.27(typescript@5.7.3)
 
   '@volar/language-core@2.2.0-alpha.8':
@@ -4147,6 +4163,8 @@ snapshots:
 
   uc.micro@2.1.0: {}
 
+  undici-types@7.16.0: {}
+
   unicorn-magic@0.1.0: {}
 
   unified@11.0.5:
@@ -4196,25 +4214,26 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite-plugin-lib-inject-css@2.2.2(vite@7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)):
+  vite-plugin-lib-inject-css@2.2.2(vite@7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)):
     dependencies:
       '@ast-grep/napi': 0.36.3
       magic-string: 0.30.17
       picocolors: 1.1.1
-      vite: 7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)
+      vite: 7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0)
 
-  vite@5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1):
+  vite@5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
       rollup: 4.54.0
     optionalDependencies:
+      '@types/node': 25.2.0
       fsevents: 2.3.3
       sass: 1.92.1
       sass-embedded: 1.92.1
       terser: 5.44.1
 
-  vite@7.3.1(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0):
+  vite@7.3.1(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)(yaml@2.7.0):
     dependencies:
       esbuild: 0.27.2
       fdir: 6.5.0(picomatch@4.0.3)
@@ -4223,13 +4242,14 @@ snapshots:
       rollup: 4.54.0
       tinyglobby: 0.2.15
     optionalDependencies:
+      '@types/node': 25.2.0
       fsevents: 2.3.3
       sass: 1.92.1
       sass-embedded: 1.92.1
       terser: 5.44.1
       yaml: 2.7.0
 
-  vitepress-theme-demoblock@3.1.3(@algolia/client-search@5.19.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3):
+  vitepress-theme-demoblock@3.1.3(@algolia/client-search@5.19.0)(@types/node@25.2.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3):
     dependencies:
       '@floating-ui/vue': 1.1.6(vue@3.5.27(typescript@5.7.3))
       '@mdit-vue/plugin-sfc': 2.1.3
@@ -4251,7 +4271,7 @@ snapshots:
       shiki: 1.27.2
       unified: 11.0.5
       unist-util-visit: 5.0.0
-      vitepress: 1.6.4(@algolia/client-search@5.19.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3)
+      vitepress: 1.6.4(@algolia/client-search@5.19.0)(@types/node@25.2.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3)
       vue: 3.5.27(typescript@5.7.3)
       yaml: 2.7.0
     transitivePeerDependencies:
@@ -4285,14 +4305,14 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitepress@1.3.3(@algolia/client-search@5.19.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3):
+  vitepress@1.3.3(@algolia/client-search@5.19.0)(@types/node@25.2.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.19.0)(search-insights@2.13.0)
       '@shikijs/core': 1.27.2
       '@shikijs/transformers': 1.27.2
       '@types/markdown-it': 14.1.2
-      '@vitejs/plugin-vue': 5.2.1(vite@5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.5.27(typescript@5.7.3))
+      '@vitejs/plugin-vue': 5.2.1(vite@5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.5.27(typescript@5.7.3))
       '@vue/devtools-api': 7.7.0
       '@vue/shared': 3.5.13
       '@vueuse/core': 11.3.0(vue@3.5.27(typescript@5.7.3))
@@ -4301,7 +4321,7 @@ snapshots:
       mark.js: 8.11.1
       minisearch: 7.1.1
       shiki: 1.27.2
-      vite: 5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)
+      vite: 5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)
       vue: 3.5.27(typescript@5.7.3)
     optionalDependencies:
       postcss: 8.5.6
@@ -4333,7 +4353,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitepress@1.6.4(@algolia/client-search@5.19.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3):
+  vitepress@1.6.4(@algolia/client-search@5.19.0)(@types/node@25.2.0)(postcss@8.5.6)(sass-embedded@1.92.1)(sass@1.92.1)(search-insights@2.13.0)(terser@5.44.1)(typescript@5.7.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.19.0)(search-insights@2.13.0)
@@ -4342,7 +4362,7 @@ snapshots:
       '@shikijs/transformers': 2.5.0
       '@shikijs/types': 2.5.0
       '@types/markdown-it': 14.1.2
-      '@vitejs/plugin-vue': 5.2.1(vite@5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.5.27(typescript@5.7.3))
+      '@vitejs/plugin-vue': 5.2.1(vite@5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1))(vue@3.5.27(typescript@5.7.3))
       '@vue/devtools-api': 7.7.0
       '@vue/shared': 3.5.13
       '@vueuse/core': 12.8.2(typescript@5.7.3)
@@ -4351,7 +4371,7 @@ snapshots:
       mark.js: 8.11.1
       minisearch: 7.1.1
       shiki: 2.5.0
-      vite: 5.4.20(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)
+      vite: 5.4.20(@types/node@25.2.0)(sass-embedded@1.92.1)(sass@1.92.1)(terser@5.44.1)
       vue: 3.5.27(typescript@5.7.3)
     optionalDependencies:
       postcss: 8.5.6

@@ -26,6 +26,6 @@ package-lock.json
 *.sw?
 .yarn
 
-# vitepress
+# vitepress docs cache
 docs/.vitepress/cache
 .vitepress/cache
