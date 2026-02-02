@@ -4,7 +4,7 @@ outline: [2,3]
 
 # Introduction
 
-an vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser
+a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser
 
 ## Installation
 
@@ -80,7 +80,7 @@ import { VueReader } from 'vue-book-reader'
 | **Name**    | **Description**          |
 | ----------- | ------------------------ |
 | loadingView | BookView loadingView     |
-| errorView   | BookView loadingView     |
+| errorView   | BookView errorView     |
 
 ### BookView Exposes
 

@@ -82,7 +82,7 @@ import { VueReader } from 'vue-book-reader'
 | **Name**    | **Description**          |
 | ----------- | ------------------------ |
 | loadingView | BookView loadingView     |
-| errorView   | BookView loadingView     |
+| errorView   | BookView errorView     |
 
 ### BookView Exposes
 
