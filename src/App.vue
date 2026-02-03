@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import VueReader from './modules/VueReader/VueReader.vue'
+import VueReader from './packages/index'
 import { ref } from 'vue'
 
 const information = ref(null)

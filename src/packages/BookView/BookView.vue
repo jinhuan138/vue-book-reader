@@ -124,7 +124,7 @@ const nextPage = () => view?.next()
 
 const prevPage = () => view?.prev()
 
-const setLocation = (href) => view?.goTo(href)
+const setLocation = (href: string) => view?.goTo(href)
 
 watch(url, () => {
   initBook()
