@@ -1,4 +1,4 @@
-# Smooth Scroll
+# Scrolled
 :::demo
 ```vue
 <template>

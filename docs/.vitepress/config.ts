@@ -53,7 +53,7 @@ export default defineConfig({
             text: "scrolled",
             link: "tips/scrolled",
           }, {
-            text: "information",
+            text: "book information",
             link: "tips/information",
           }, {
             text: "import file",
