@@ -13,9 +13,8 @@
 </template>
 
 <script setup>
-import { defineClientComponent } from 'vitepress'
+import { VueReader } from 'vue-book-reader'
 import { ref } from 'vue'
-const VueReader = defineClientComponent(() => import('vue-book-reader'))
 
 const page = ref('')
 const getRendition = (rendition) => {

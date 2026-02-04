@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
-import { defineClientComponent } from 'vitepress'
-const VueReader = defineClientComponent(() => import('vue-book-reader'))
+import { VueReader } from 'vue-book-reader'
 import { ref } from 'vue'
+
 let rendition
 const getRendition = (val) => (rendition = val)
 const searchText = ref('只在捻花一笑中')

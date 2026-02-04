@@ -15,8 +15,7 @@
 </template>
 
 <script setup>
-import { defineClientComponent } from 'vitepress'
-const VueReader = defineClientComponent(() => import('vue-book-reader'))
+import { VueReader } from 'vue-book-reader'
 import VueEasyLightbox from 'vue-easy-lightbox'
 import { ref } from 'vue'
 

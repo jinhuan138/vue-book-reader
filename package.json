@@ -20,6 +20,7 @@
     "FB2",
     "CBZ"
   ],
+  "license": "Apache",
   "homepage": "https://jinhuan138.github.io/vue-book-reader/",
   "repository": {
     "type": "git",
@@ -36,7 +37,6 @@
     "docs:build": "npm -C docs run docs:build",
     "docs:preview": "npm -C docs run docs:preview"
   },
-  "license": "ISC",
   "devDependencies": {
     "@types/node": "^25.2.0",
     "@vitejs/plugin-vue": "^5.0.4",
