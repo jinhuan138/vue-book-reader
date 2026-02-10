@@ -1,17 +1,21 @@
-import { defineConfig } from 'vite'
+import { defineConfig, PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import { resolve } from 'path'
-import { fileURLToPath } from 'url'
-import { name } from './package.json'
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
+import { visualizer } from 'rollup-plugin-visualizer'
+import { name, version } from './package.json'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), libInjectCss()],
+  plugins: [
+    vue(),
+    libInjectCss(),
+    visualizer({
+      filename: `stats${version}.html`,
+    }) as PluginOption,
+  ],
   resolve: {
-    extensions: ['.ts', '.js','mjs'],
+    extensions: ['.ts', '.js', 'mjs'],
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') }],
   },
   build: {

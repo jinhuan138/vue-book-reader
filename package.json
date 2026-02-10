@@ -18,7 +18,8 @@
     "KF8",
     "AZW3",
     "FB2",
-    "CBZ"
+    "CBZ",
+    "PDF"
   ],
   "license": "Apache",
   "homepage": "https://jinhuan138.github.io/vue-book-reader/",
@@ -42,6 +43,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "pdfjs-dist": "^4.7.76",
     "prettier": "^3.2.5",
+    "rollup-plugin-visualizer": "^6.0.5",
     "typescript": "^5.4.5",
     "vite": "^7.3.1",
     "vite-plugin-lib-inject-css": "^2.2.2",
