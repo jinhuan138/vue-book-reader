@@ -29,50 +29,22 @@ export default defineConfig({
       {
         text: "Guide",
         items: [
-          {
-            text: "Introduction",
-            link: "guide/introduction",
-          }
+          { text: "Introduction", link: "guide/introduction" }
         ],
       },
       {
         text: "Tips",
         items: [
-          {
-            text: "page number",
-            link: "tips/page_number",
-          },
-          {
-            text: "custom css",
-            link: "tips/custom_css",
-          },
-          {
-            text: "smooth scroll",
-            link: "tips/smooth_scroll",
-          }, {
-            text: "scrolled",
-            link: "tips/scrolled",
-          }, {
-            text: "book information",
-            link: "tips/information",
-          }, {
-            text: "import file",
-            link: "tips/import_file",
-          },
-          {
-            text: "current progress",
-            link: "tips/current_progress",
-          },
-          {
-            text: "search",
-            link: "tips/search",
-          }, {
-            text: "lightbox",
-            link: "tips/lightbox",
-          }, {
-            text: "pdf file",
-            link: "tips/pdf_file",
-          },
+          { text: "page number", link: "tips/page_number" },
+          { text: "custom css", link: "tips/custom_css" },
+          { text: "smooth scroll", link: "tips/smooth_scroll" },
+          { text: "scrolled", link: "tips/scrolled" },
+          { text: "book information", link: "tips/information" },
+          { text: "import file", link: "tips/import_file" },
+          { text: "current progress", link: "tips/current_progress" },
+          { text: "search", link: "tips/search" },
+          { text: "lightbox", link: "tips/lightbox" },
+          { text: "pdf file", link: "tips/pdf_file" },
         ],
       },
     ]

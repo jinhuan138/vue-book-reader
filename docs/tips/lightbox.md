@@ -32,18 +32,16 @@ const getRendition = (rendition) => {
   rendition.addEventListener('load', () => {
     const docs = rendition.renderer.getContents()
     docs.forEach(({ doc }) => {
-      imgsRef.value = []
       const imgs = [
         ...doc.querySelectorAll('img'),
         ...doc.querySelectorAll('image'),
       ]
-      imgs.forEach((img, index) => {
+      imgsRef.value = imgs.map((img, index) => {
         img.addEventListener('click', () => {
           visibleRef.value = true
           indexRef.value = index
         })
-        const src = img.getAttribute('src') || img.getAttribute('xlink:href')
-        imgsRef.value.push(src)
+        return img.getAttribute('src') || img.getAttribute('xlink:href')
       })
     })
   })
