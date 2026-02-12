@@ -41,6 +41,7 @@
   "devDependencies": {
     "@types/node": "^25.2.0",
     "@vitejs/plugin-vue": "^5.0.4",
+    "only-allow": "^1.2.2",
     "pdfjs-dist": "^4.7.76",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^6.0.5",

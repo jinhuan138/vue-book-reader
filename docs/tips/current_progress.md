@@ -33,14 +33,14 @@
 import { VueReader } from 'vue-book-reader'
 import { ref } from 'vue'
 
-let view = null
+let rendition = null
 const current = ref(0)
 const change = (e) => {
   const value = e.target.value
   current.value = value
-  view.goToFraction(parseFloat(value / 100))
+  rendition.goToFraction(parseFloat(value / 100))
 }
-const getRendition = (val) => (view = val)
+const getRendition = (val) => (rendition = val)
 
 const locationChange = (detail) => {
   const { fraction } = detail

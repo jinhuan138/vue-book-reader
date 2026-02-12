@@ -5,7 +5,7 @@
 <template>
   <div style="height: 100vh; position: relative;">
     <vue-reader
-      url="/vue-book-reader/files/啼笑因缘.epub"
+      url="/vue-book-reader/files/啼笑因缘.fb2"
       :getRendition="getRendition"
     />
     <div :class="$style.page">{{ page }}</div>

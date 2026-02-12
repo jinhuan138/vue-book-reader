@@ -7,6 +7,7 @@ import { name, version } from './package.json'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig({
+  base: name,
   plugins: [
     vue(),
     libInjectCss(),
