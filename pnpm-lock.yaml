@@ -42,9 +42,6 @@ importers:
       vue:
         specifier: ^3.5.27
         version: 3.5.27(typescript@5.7.3)
-      vue-book-reader:
-        specifier: ^1.1.8
-        version: 1.1.8
       vue-tsc:
         specifier: ^2.0.6
         version: 2.0.13(typescript@5.7.3)
@@ -2259,9 +2256,6 @@ packages:
         optional: true
       postcss:
         optional: true
-
-  vue-book-reader@1.1.8:
-    resolution: {integrity: sha512-uXEREj8gPZnVZ45d1moZ+NQv0T+4C/ZR/pGX7TnXLPZlCVqPG6Ms9XogXP4OE5owMYN6p4o/9CoaNblnynIfdw==}
 
   vue-book-reader@1.2.2:
     resolution: {integrity: sha512-bQ4f3PS4S/b+i+Vjvo/bfY45cSm/ZgXFK4RzTTzUVx6SerUCH948PuidZdmTW1LGihQOP17V1O5qJUjPb+rmwg==}
@@ -4578,8 +4572,6 @@ snapshots:
       - terser
       - typescript
       - universal-cookie
-
-  vue-book-reader@1.1.8: {}
 
   vue-book-reader@1.2.2:
     dependencies:

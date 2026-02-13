@@ -7,7 +7,7 @@ import { name, version } from './package.json'
 
 // https://cn.vitejs.dev/config/
 export default defineConfig({
-  base: name,
+  base: `/${name}/`,
   plugins: [
     vue(),
     libInjectCss(),
@@ -30,7 +30,6 @@ export default defineConfig({
       entry: 'src/packages/index.ts',
       name,
       fileName: (format) => `${name}.${format}.js`,
-      formats: ['es', 'umd', 'cjs'],
     },
     rollupOptions: {
       external: ['vue'],
@@ -39,6 +38,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
+        inlineDynamicImports: true,
       },
     },
   },

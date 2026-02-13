@@ -40,8 +40,7 @@ import { VueReader } from 'vue-book-reader'
 |       **Module**        |       **Filename**        |
 | ----------------------- | ------------------------- |
 |    UMD(for browsers)    | vue-book-reader.umd.js    |
-|        CommonJS         | vue--book-reader.cjs.js   |
-| ES Module(for bundlers) | vue--book-reader.es.js    |
+| ES Module(for bundlers) | vue-book-reader.es.js     |
 
 ## VueReader API
 

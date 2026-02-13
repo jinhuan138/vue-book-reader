@@ -19,7 +19,7 @@ import {
   wheelListener,
   keyListener,
 } from '../utils/listener/listener'
-import { ref, toRefs, watch, onBeforeMount, onUnmounted } from 'vue'
+import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
 import 'core-js/proposals/array-grouping-v2'
 interface FoliateViewElement extends HTMLElement {
   open: (url: string | File) => Promise<void>
@@ -130,7 +130,7 @@ watch(url, () => {
   initBook()
 })
 
-onBeforeMount(async () => {
+onMounted(async () => {
   if (!customElements.get('foliate-view')) {
     await import('../foliate-js/view.js')
   }

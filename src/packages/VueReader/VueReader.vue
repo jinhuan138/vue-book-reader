@@ -85,7 +85,7 @@ const bookName = ref('')
 
 let rendition: any = null
 const onRelocate = ({ detail }) => {
-  currentHref.value = detail.tocItem?.href
+  currentHref.value = detail.tocItem?.href || null
 }
 const onGetRendition = (val) => {
   rendition = val
