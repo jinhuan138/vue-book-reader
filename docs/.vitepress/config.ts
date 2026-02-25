@@ -45,6 +45,7 @@ export default defineConfig({
           { text: "search", link: "tips/search" },
           { text: "lightbox", link: "tips/lightbox" },
           { text: "pdf file", link: "tips/pdf_file" },
+          { text: 'highlight', link: 'tips/highlight' },
         ],
       },
     ]
@@ -52,10 +53,6 @@ export default defineConfig({
   vite: {
     plugins: [demoblockVitePlugin()],
     publicDir: resolve(__dirname, "../../public"),
-    ssr: {
-      noExternal: ['vue-book-reader'],
-      external: ['canvas']
-    },
     css: {
       preprocessorOptions: {
         scss: {

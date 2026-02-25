@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { name, version } from './package.json'
 
 // https://cn.vitejs.dev/config/
@@ -14,6 +15,14 @@ export default defineConfig({
     visualizer({
       filename: `stats${version}.html`,
     }) as PluginOption,
+    viteStaticCopy({
+      targets: [
+        {
+          src: './src/packages/foliate-js/overlayer.js',
+          dest: '',
+        },
+      ],
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.js', 'mjs'],
@@ -24,7 +33,6 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: false,
     minify: false,
-    outDir: 'lib',
     target: ['edge90', 'chrome90', 'firefox90', 'safari15'],
     lib: {
       entry: 'src/packages/index.ts',

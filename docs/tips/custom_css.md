@@ -9,17 +9,14 @@
 
 <script setup>
 import { VueReader } from 'vue-book-reader'
-const getCSS = (style) => [
-  `
-    html {
+
+const getRendition = (rendition) => {
+  rendition.renderer.setStyles([
+    `html {
       background: #000;
       color: #fff;
     }`,
-]
-const getRendition = (rendition) => {
-  rendition.addEventListener('load', () => {
-    rendition.renderer.setStyles(getCSS())
-  })
+  ])
 }
 </script>
 <style scoped>

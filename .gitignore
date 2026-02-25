@@ -7,5 +7,5 @@ docs/.vitepress/cache
 docs/.vitepress/dist
 
 # build output
-lib
+dist
 stats*.html
