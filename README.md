@@ -19,12 +19,10 @@
   <h2><a href="https://jinhuan138.github.io/vue-book-reader/">📖Documentation</a></h2>
 </div>
 
-
 # Introduction
 
 vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.
 Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
-
 
 ## Basic usage
 
@@ -49,51 +47,47 @@ import { VueReader } from 'vue-book-reader'
 
 ### VueReader Attributes
 
-| **Name** | **Description**                   | **Type**                              | **Default** |
-| -------- | --------------------------------- | ------------------------------------- | ----------- |
-| url      | book url or File                  | `string`/`File`                       | —           |
-| location | set / update location of the book | `string`/`number`                     | —           |
-| title    | the title of the book             | `string`                              | —           |
-| showToc  | whether to show the toc           | `boolean`                             | true        |
-| [BookView Attributes](#bookview-attributes)  |  BookView attributes all can be used. | -           |
+| **Name**                                    | **Description**                      | **Type**          | **Default** |
+| ------------------------------------------- | ------------------------------------ | ----------------- | ----------- |
+| url                                         | book url or File                     | `string`/`File`   | —           |
+| location                                    | set / update location of the book    | `string`/`number` | —           |
+| title                                       | the title of the book                | `string`          | —           |
+| showToc                                     | whether to show the toc              | `boolean`         | true        |
+| [BookView Attributes](#bookview-attributes) | BookView attributes all can be used. | -                 |
 
 ### VueReader Slots
 
-| **Name**                          | **Description**                   |
-| --------------------------------- | --------------------------------- |
-| title                             |  book title                       |
-| [BookView slots](#bookview-slots) |  BookView slots all can be used.  |
+| **Name**                          | **Description**                 |
+| --------------------------------- | ------------------------------- |
+| title                             | book title                      |
+| [BookView slots](#bookview-slots) | BookView slots all can be used. |
 
 ### VueReader Exposes
-| **Name**                              | **Description**                     |
-| ------------------------------------- | ----------------------------------- | 
-| [BookView Exposes](#bookview-exposes) |  BookView exposes all can be used.  |
+
+| **Name**                              | **Description**                   |
+| ------------------------------------- | --------------------------------- |
+| [BookView Exposes](#bookview-exposes) | BookView exposes all can be used. |
+
 ## BookView API
 
 ### BookView Attributes
 
-| **Name**   | **Description**                   | **Type**                | **Default**      |
-| ---------- | --------------------------------- | ----------------------- | ---------------- |
-| url        | book url or File                                            | `string`/`File`  |
-| tocChanged | get an array representing the table of contents of the book | `function(href)` | 
+| **Name**   | **Description**                                             | **Type**         | **Default** |
+| ---------- | ----------------------------------------------------------- | ---------------- | ----------- |
+| url        | book url or File                                            | `string`/`File`  |             |
+| tocChanged | get an array representing the table of contents of the book | `function(href)` |             |
 
 ### BookView Slots
 
-| **Name**    | **Description**          |
-| ----------- | ------------------------ |
-| loadingView | BookView loadingView     |
-| errorView   | BookView errorView       |
+| **Name**    | **Description**      |
+| ----------- | -------------------- |
+| loadingView | BookView loadingView |
+| errorView   | BookView errorView   |
 
 ### BookView Exposes
 
-| **Name**    | **Description**        | **Type**         |
-| ----------- | ---------------------- | ---------------- |
-| nextPage    | display  next page     | `function`       |
-| prevPage    | display  previous page | `function`       |
-| setLocation | Set the page           | `function(href)` |
-
-<style>
-html:focus-within {
-  scroll-behavior: smooth;
-}
-</style>
+| **Name**    | **Description**       | **Type**         |
+| ----------- | --------------------- | ---------------- |
+| nextPage    | display next page     | `function`       |
+| prevPage    | display previous page | `function`       |
+| setLocation | Set the page          | `function(href)` |

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "jsx": "preserve",
     "declarationMap": true,
     "inlineSources": true,
     "declaration": true,

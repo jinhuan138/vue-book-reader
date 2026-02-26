@@ -52,9 +52,6 @@
     "vue": "^3.5.27",
     "vue-tsc": "^2.0.6"
   },
-  "browser": {
-    "canvas": false
-  },
   "packageManager": "pnpm@9.6.0",
   "dependencies": {
     "core-js": "^3.47.0"
