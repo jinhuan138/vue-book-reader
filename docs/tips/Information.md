@@ -1,3 +1,3 @@
 # Get book information
 
-<preview path="../demos/information.vue"></preview>
+<preview path="../demos/Information.vue"></preview>
