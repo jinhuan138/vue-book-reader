@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import VueReader from '../lib/vue-book-reader.es.js'
+import VueReader from '../dist/vue-book-reader.es.js'
 // import VueReader from './packages'
 import { ref } from 'vue'
 
