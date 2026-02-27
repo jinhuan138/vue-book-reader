@@ -1,10 +1,11 @@
 <template>
-  <vue-reader url="/files/啼笑因缘.epub" :getRendition="getRendition">
+  <vue-reader url="/vue-book-reader/files/啼笑因缘.epub" :getRendition="getRendition">
   </vue-reader>
 </template>
 
 <script setup>
-import VueReader from './packages/index'
+import VueReader from '../lib/vue-book-reader.es.js'
+// import VueReader from './packages'
 import { ref } from 'vue'
 
 const information = ref(null)
@@ -18,7 +19,7 @@ const getCSS = (style) => [
 const getRendition = async (rendition) => {
   console.log(
     rendition.search({
-      query: '1',index:null
+      query: '1', index: null
     }),
   )
   // rendition
@@ -43,11 +44,11 @@ const getRendition = async (rendition) => {
   justify-content: center;
 }
 
-.progress > input[type='number'] {
+.progress>input[type='number'] {
   text-align: center;
 }
 
-.progress > input[type='range'] {
+.progress>input[type='range'] {
   width: 100%;
 }
 </style>

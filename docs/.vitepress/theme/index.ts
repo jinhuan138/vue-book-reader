@@ -1,7 +1,8 @@
+
+import { App } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import { EnhanceAppContext } from "vitepress"
-import Demo from 'vitepress-theme-demoblock/dist/client/components/Demo.vue'
-import DemoBlock from 'vitepress-theme-demoblock/dist/client/components/DemoBlock.vue'
+import { ElementPlusContainer } from '@vitepress-demo-preview/component';
+import '@vitepress-demo-preview/component/dist/style.css';
 import pkg from '../../../package.json'
 import '../styles/index.css'
 console.log(
@@ -12,10 +13,7 @@ console.log(
 
 export default {
   ...DefaultTheme,
-  enhanceApp(ctx: EnhanceAppContext) {
-    DefaultTheme.enhanceApp(ctx)
-    const { app } = ctx
-    app.component('Demo', Demo)
-    app.component('DemoBlock', DemoBlock)
+  enhanceApp({ app }: { app: App }) {
+    app.component('demo-preview', ElementPlusContainer);
   }
 }

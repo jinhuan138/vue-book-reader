@@ -1,5 +1,8 @@
 import { defineConfig } from 'vitepress'
-import { demoBlockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
+import {
+  containerPreview,
+  componentPreview,
+} from '@vitepress-demo-preview/plugin';
 import { resolve } from 'path'
 
 // https://vitepress.dev/reference/site-config
@@ -11,7 +14,8 @@ export default defineConfig({
   markdown: {
     theme: { light: 'github-light', dark: 'github-dark' },
     config: (md) => {
-      md.use(demoBlockPlugin)
+      md.use(containerPreview, { clientOnly: true });
+      md.use(componentPreview, { clientOnly: true });
     }
   },
   themeConfig: {
@@ -51,7 +55,6 @@ export default defineConfig({
     ]
   },
   vite: {
-    plugins: [demoblockVitePlugin()],
     publicDir: resolve(__dirname, "../../public"),
     css: {
       preprocessorOptions: {
