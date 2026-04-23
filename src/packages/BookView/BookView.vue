@@ -27,6 +27,7 @@ interface FoliateViewElement extends HTMLElement {
   goTo: (href: string | number) => void
   next: () => void
   prev: () => void
+  init: (options: { lastLocation?: string | number }) => Promise<void>
   renderer: any
   book: {
     toc: any[]
@@ -52,11 +53,14 @@ const props = defineProps({
   location: {
     type: [String, Number],
   },
+  initOption: {
+    type: Object,
+  },
   tocChanged: Function,
   getRendition: Function,
 })
 
-const { tocChanged, getRendition } = props
+const { tocChanged, getRendition, initOption } = props
 const { url, location } = toRefs(props)
 
 const emit = defineEmits(['update:location'])
@@ -76,7 +80,7 @@ const initBook = async () => {
       }
       await view.open(url.value)
       getRendition && getRendition(view)
-      initReader()
+      await initReader()
     }
   } catch (error) {
     console.error('Error opening book:', error)
@@ -84,13 +88,13 @@ const initBook = async () => {
   }
 }
 
-const initReader = () => {
+const initReader = async () => {
   isLoaded.value = true
   const { book } = view as FoliateViewElement
   registerEvents()
   tocChanged && tocChanged(book.toc)
-  if (location && location.value) {
-    view?.goTo(location.value)
+  if (initOption) {
+    await view!.init(initOption);
   } else {
     view!.renderer.next()
   }
