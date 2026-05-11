@@ -17,6 +17,6 @@
   "dependencies": {
     "@vitepress-demo-preview/component": "^2.6.2",
     "@vitepress-demo-preview/plugin": "^1.4.1",
-    "vue-book-reader": "^1.2.5"
+    "vue-book-reader": "^1.2.8"
   }
 }
