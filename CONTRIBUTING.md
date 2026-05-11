@@ -37,6 +37,11 @@ PDF.js has been removed from the core library to optimize for Vite build and red
 + import annotationLayerBuilderCSS from './vendor/pdfjs/annotation_layer_builder.css?inline'
 ```
 
+```diff
+- cMapUrl: pdfjsPath('cmaps/'),
+- standardFontDataUrl: pdfjsPath('standard_fonts/'),
+```
+
 ## Development vue-book-reader
 
 ```bash
