@@ -8,7 +8,7 @@ cd vue-book-reader
 ## Clone foliate
 
 ```bash
-git clone --recurse-submodules https://github.com/johnfactotum/foliate.git
+git clone --recurse-submodules https://github.com/johnfactotum/foliate-js.git src/packages/foliate-js
 ```
 
 ## Install dependencies
@@ -40,6 +40,28 @@ PDF.js has been removed from the core library to optimize for Vite build and red
 ```diff
 - cMapUrl: pdfjsPath('cmaps/'),
 - standardFontDataUrl: pdfjsPath('standard_fonts/'),
+```
+
+## Fix CSS data type issue in paginator.js
+
+Some EPUB books may have CSS files with non-string data types (e.g., `ArrayBuffer` or `Blob`), which can cause `data.replace is not a function` error in `paginator.js`.
+
+In `src/packages/foliate-js/paginator.js`, in the `open()` method, the `data` event handler should check the type of `data` before calling `.replace()`:
+
+```diff
+- detail.data = Promise.resolve(detail.data).then(data => data
+-     .replace(...))
++ detail.data = Promise.resolve(detail.data).then(data => {
++     if (typeof data !== 'string') {
++         if (data instanceof ArrayBuffer)
++             data = new TextDecoder('utf-8').decode(data)
++         else if (data instanceof Blob)
++             return data.text()
++         else
++             return data
++     }
++     return data.replace(...)
++ })
 ```
 
 ## Development vue-book-reader
