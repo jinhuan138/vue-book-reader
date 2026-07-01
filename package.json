@@ -1,6 +1,6 @@
 {
   "name": "vue-book-reader",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "type": "module",
   "main": "dist/vue-book-reader.umd.js",
   "module": "dist/vue-book-reader.es.js",
@@ -29,6 +29,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "postinstall": "node scripts/fix-foliate.mjs",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
