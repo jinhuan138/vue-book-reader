@@ -2,13 +2,8 @@
   <div class="container">
     <div class="readerArea" :class="{ containerExpanded: expandedToc }">
       <!--展开目录 -->
-      <button
-        v-if="showToc"
-        class="tocButton"
-        :class="{ tocButtonExpanded: expandedToc }"
-        type="button"
-        @click="toggleToc"
-      >
+      <button v-if="showToc" class="tocButton" :class="{ tocButtonExpanded: expandedToc }" type="button"
+        @click="toggleToc">
         <span class="tocButtonBar" style="top: 35%"></span>
         <span class="tocButtonBar" style="top: 66%"></span>
       </button>
@@ -19,12 +14,7 @@
         </div>
       </slot>
       <!-- 阅读 -->
-      <book-view
-        ref="bookRef"
-        v-bind="$attrs"
-        :tocChanged="onTocChange"
-        :getRendition="onGetRendition"
-      >
+      <book-view ref="bookRef" v-bind="$attrs" :url="url" :tocChanged="onTocChange" :getRendition="onGetRendition">
         <template #loadingView>
           <slot name="loadingView">
             <div class="loadingView">Loading…</div>
@@ -53,9 +43,13 @@
 <script setup lang="ts">
 import BookView from '../BookView/BookView.vue'
 import Toc from './Toc.vue'
-import { ref, reactive, toRefs, useTemplateRef } from 'vue'
+import { ref, reactive, toRefs, useTemplateRef, type PropType } from 'vue'
 type BookViewType = InstanceType<typeof BookView>
 const props = defineProps({
+  url: {
+    type: [String, Object] as PropType<string | File>,
+    required: true,
+  },
   showToc: {
     type: Boolean,
     default: true,
@@ -89,7 +83,7 @@ const onRelocate = ({ detail }) => {
 }
 const onGetRendition = (val) => {
   rendition = val
-  getRendition && getRendition(rendition)
+  getRendition?.(rendition)
   rendition.addEventListener('load', () => {
     const { book } = rendition
     const title = book.metadata?.title
