@@ -1,6 +1,7 @@
 <template>
     <div style='height: 100vh'>
-        <vue-reader url='/vue-book-reader/files/梵高手稿.epub' :getRendition="getRendition" />
+        <vue-reader url='/vue-book-reader/files/玫瑰圣经.epub' :getRendition="getRendition"
+            :initOption="{ lastLocation: 'epubcfi(/6/16!/4,/2,/8/4/6/1:4)' }" />
     </div>
     <vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="visibleRef = false" />
 </template>
