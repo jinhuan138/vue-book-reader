@@ -1,3 +1,5 @@
 packages:
   - docs
   - src/packages/foliate-js
+catalog:
+  vue-book-reader: latest
