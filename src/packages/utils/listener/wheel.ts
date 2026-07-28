@@ -18,7 +18,7 @@ export default function wheelListener(
   let dist: number = 0
   let isScrolling: NodeJS.Timeout
 
-  el.addEventListener('wheel', (e: epubEvent) => {
+  const handler = (e: epubEvent) => {
     if (e.ignore) return
     e.ignore = true
 
@@ -31,10 +31,12 @@ export default function wheelListener(
         // If wheel scrolled down it indicates left
         let direction: Direction = Math.sign(dist) > 0 ? 'next' : 'prev'
         fn(direction)
-        dist = 0
       }
 
       dist = 0
     }, allowedTime)
-  })
+  }
+
+  el.addEventListener('wheel', handler)
+  return () => el.removeEventListener('wheel', handler)
 }

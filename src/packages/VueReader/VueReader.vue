@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import BookView from '../BookView/BookView.vue'
 import Toc from './Toc.vue'
-import { ref, reactive, toRefs, useTemplateRef, type PropType } from 'vue'
+import { ref, reactive, toRefs, useTemplateRef, onUnmounted, type PropType } from 'vue'
 type BookViewType = InstanceType<typeof BookView>
 const props = defineProps({
   url: {
@@ -81,16 +81,24 @@ let rendition: any = null
 const onRelocate = ({ detail }) => {
   currentHref.value = detail.tocItem?.href || null
 }
+const onRenditionLoad = () => {
+  const { book } = rendition
+  const title = book.metadata?.title
+  bookName.value = title || ''
+}
 const onGetRendition = (val) => {
   rendition = val
   getRendition?.(rendition)
-  rendition.addEventListener('load', () => {
-    const { book } = rendition
-    const title = book.metadata?.title
-    bookName.value = title || ''
-  })
+  rendition.addEventListener('load', onRenditionLoad)
   rendition.addEventListener('relocate', onRelocate)
 }
+
+onUnmounted(() => {
+  if (rendition) {
+    rendition.removeEventListener('load', onRenditionLoad)
+    rendition.removeEventListener('relocate', onRelocate)
+  }
+})
 
 const onTocChange = (_toc) => {
   toc.value = _toc

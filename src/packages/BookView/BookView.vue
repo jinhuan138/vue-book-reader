@@ -110,17 +110,26 @@ const registerEvents = () => {
   view!.addEventListener('relocate', onRelocate)
 }
 
-const onLoad = ({ detail: { doc } }) => {
-  wheelListener(doc, flipPage)
-  swipListener(doc, flipPage)
-  keyListener(doc, flipPage)
+let cleanupDocListeners: (() => void)[] = []
+
+const onLoad = (e: Event) => {
+  const { doc } = (e as CustomEvent).detail
+  cleanupDocListeners.forEach((fn) => fn())
+  cleanupDocListeners = [
+    wheelListener(doc, flipPage),
+    swipListener(doc, flipPage),
+    keyListener(doc, flipPage),
+  ]
 }
 onUnmounted(() => {
   view?.removeEventListener('load', onLoad)
   view?.removeEventListener('relocate', onRelocate)
+  cleanupDocListeners.forEach((fn) => fn())
+  cleanupDocListeners = []
 })
 
-const onRelocate = ({ detail }) => {
+const onRelocate = (e: Event) => {
+  const { detail } = e as CustomEvent
   emit('update:location', detail)
 }
 

@@ -27,6 +27,7 @@ export default function swipListener(
   let startY: number
   let startTime: number
   let startTarget: EventTarget | null
+  const controller = new AbortController()
 
   document.addEventListener(
     'touchstart',
@@ -39,7 +40,7 @@ export default function swipListener(
       startTime = Date.now()
       startTarget = e.target
     },
-    false,
+    { signal: controller.signal },
   )
 
   document.addEventListener(
@@ -87,6 +88,7 @@ export default function swipListener(
         }
       }
     },
-    false,
+    { signal: controller.signal },
   )
+  return () => controller.abort()
 }

@@ -27,7 +27,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watchEffect, toRefs } from 'vue'
+import { ref, watch, toRefs } from 'vue'
 export interface TocProps {
   toc: Array<any>
   current: string | number | null
@@ -43,18 +43,22 @@ const { toc, current, isSubmenu } = toRefs(props)
 const handleClick = (item): void => {
   if (item.subitems && item?.subitems?.length > 0) {
     item.expansion = !item.expansion
-    console.log('item.href', item.href)
     setLocation(item.href, false)
   } else {
     setLocation(item.href)
   }
 }
-watchEffect(() => {
-  bookToc.value = toc.value.map((item) => ({
-    ...item,
-    expansion: false,
-  }))
-})
+watch(
+  toc,
+  (newToc) => {
+    const expansionMap = new Map(bookToc.value.map((item) => [item.href, item.expansion]))
+    bookToc.value = newToc.map((item) => ({
+      ...item,
+      expansion: expansionMap.get(item.href) ?? false,
+    }))
+  },
+  { immediate: true },
+)
 </script>
 <style scoped>
 /* ↓ */
