@@ -7,7 +7,7 @@
 type Direction = 'next' | 'prev'
 
 export default function keyListener(
-  el: HTMLElement,
+  el: Document | HTMLElement,
   fn: (dire: Direction) => void,
 ) {
   const handler = (e: KeyboardEvent) => {

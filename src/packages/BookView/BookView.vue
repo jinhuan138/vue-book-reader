@@ -110,22 +110,41 @@ const registerEvents = () => {
   view!.addEventListener('relocate', onRelocate)
 }
 
-let cleanupDocListeners: (() => void)[] = []
+const docListenerCleanups = new Map<Document, (() => void)[]>()
+let cleanupRootKeyListener: (() => void) | undefined
+
+const cleanupDocListeners = (doc?: Document) => {
+  const entries = doc
+    ? ([[doc, docListenerCleanups.get(doc) ?? []]] as const)
+    : Array.from(docListenerCleanups.entries())
+
+  entries.forEach(([listenerDoc, cleanups]) => {
+    cleanups.forEach((cleanup) => cleanup())
+    docListenerCleanups.delete(listenerDoc)
+  })
+}
 
 const onLoad = (e: Event) => {
   const { doc } = (e as CustomEvent).detail
-  cleanupDocListeners.forEach((fn) => fn())
-  cleanupDocListeners = [
+
+  // Fixed-layout books (including CBZ) can display two iframe documents at
+  // once. Keep listeners for every connected page in the current spread.
+  docListenerCleanups.forEach((_, listenerDoc) => {
+    if (!listenerDoc.defaultView?.frameElement?.isConnected)
+      cleanupDocListeners(listenerDoc)
+  })
+  cleanupDocListeners(doc)
+  docListenerCleanups.set(doc, [
     wheelListener(doc, flipPage),
     swipListener(doc, flipPage),
     keyListener(doc, flipPage),
-  ]
+  ])
 }
 onUnmounted(() => {
   view?.removeEventListener('load', onLoad)
   view?.removeEventListener('relocate', onRelocate)
-  cleanupDocListeners.forEach((fn) => fn())
-  cleanupDocListeners = []
+  cleanupDocListeners()
+  cleanupRootKeyListener?.()
 })
 
 const onRelocate = (e: Event) => {
@@ -144,6 +163,9 @@ watch(url, () => {
 })
 
 onMounted(async () => {
+  // Fixed-layout pages are replaced while navigating. Listen on the stable
+  // outer document as well, so keyboard navigation survives iframe removal.
+  cleanupRootKeyListener = keyListener(document, flipPage)
   if (!customElements.get('foliate-view')) {
     await import('../foliate-js/view.js')
   }
