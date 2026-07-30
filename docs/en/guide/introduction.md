@@ -22,7 +22,7 @@ pnpm add vue-book-reader --save
 
 And in your vue-component...
 
-<preview path="../demos/Demo.vue"></preview>
+<preview path="../../demos/Demo.vue"></preview>
 
 ## Different Builds
 

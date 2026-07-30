@@ -3,6 +3,8 @@
   <h1>VueBookReader</h1>
 </div>
 
+[简体中文](./README.zh-CN.md)
+
 <p>
   <a href="https://www.npmjs.com/package/vue-book-reader" target="_blank">
     <img src="https://img.shields.io/npm/v/vue-book-reader?style=flat-square" />
@@ -16,7 +18,7 @@
 </p>
 
 <div align="center">
-  <h2><a href="https://jinhuan138.github.io/vue-book-reader/">📖Documentation</a></h2>
+  <h2><a href="https://jinhuan138.github.io/vue-book-reader/en/">📖Documentation</a></h2>
 </div>
 
 # Introduction
