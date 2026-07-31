@@ -3,37 +3,36 @@ layout: home
 sidebar: true
 
 title: Home
-titleTemplate: e-book component for Vue
+titleTemplate: An e-book reader component for Vue
 
 hero:
   name: VueBookReader
-  text: an easy way to embed a reader into your webapp
-  tagline: vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
+  text: Embed an e-book reader in your Vue application
+  tagline: Built on foliate-js, vue-book-reader supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, TXT, and PDF (experimental; requires PDF.js). You can also extend it with other formats by implementing the book interface.
   image:
     src: /logo.png
     alt: VueBookReader
   actions:
-    - text: Get started
+    - text: Get Started
       link: /en/guide/introduction
       theme: brand
     - text: Tips
       link: /en/tips/custom_css
       theme: alt
 features:
-
   - icon: 📚
     title: Multi-Format Support
-    details: Support EPUB, MOBI, KF8 (AZW3), FB2, CBZ, TXT, PDF (experimental)
+    details: Read EPUB, MOBI, KF8 (AZW3), FB2, CBZ, TXT, and experimental PDF files.
   - icon: 🔍
-    title: Search
-    details: Search across the entire book to find relevant sections
+    title: Full-Text Search
+    details: Search the entire book and quickly find the content you need.
   - icon: 🎨
-    title: Customize Style
-    details: Adjust font、 colors 、backgroundColor...for a personalized experience
+    title: Customizable Styles
+    details: Adjust fonts, colors, backgrounds, and more for a personalized reading experience.
   - icon: 🔄
-    title: Scroll/Page View Modes
-    details: Switch between scrolling or paginated reading modes
+    title: Scrolling and Pagination
+    details: Switch between scrolling and paginated reading modes.
   - icon: ⌨️
-    title: Keyboard events
-    details: Use ⬆️⬇️⬅️➡️ to turn the page
+    title: Keyboard Navigation
+    details: Navigate pages with the arrow keys.
 ---

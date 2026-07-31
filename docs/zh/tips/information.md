@@ -1,3 +1,3 @@
-# 获取图书信息
+# 获取图书元数据
 
 <preview path="../../demos/Information.vue"></preview>

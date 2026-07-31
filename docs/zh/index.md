@@ -3,12 +3,12 @@ layout: home
 sidebar: true
 
 title: 首页
-titleTemplate: 适用于 Vue 的电子书阅读器组件
+titleTemplate: Vue 电子书阅读器组件
 
 hero:
   name: VueBookReader
-  text: 轻松地将电子书阅读器嵌入你的 Web 应用
-  tagline: vue-book-reader 是 [foliate-js](https://github.com/johnfactotum/foliate-js) 的 Vue 封装，用于在浏览器中渲染电子书。支持 EPUB、MOBI、KF8（AZW3）、FB2、CBZ、PDF（实验性功能，需要 PDF.js）；也可以通过实现图书接口自行扩展其他格式。
+  text: 在 Vue 应用中轻松嵌入电子书阅读器
+  tagline: vue-book-reader 基于 foliate-js 封装，支持 EPUB、MOBI、KF8（AZW3）、FB2、CBZ、TXT 和 PDF（实验性支持，需要 PDF.js）。你也可以通过实现图书接口扩展其他格式。
   image:
     src: /logo.png
     alt: VueBookReader
@@ -22,17 +22,17 @@ hero:
 features:
   - icon: 📚
     title: 多格式支持
-    details: 支持 EPUB、MOBI、KF8（AZW3）、FB2、CBZ、TXT 和 PDF（实验性功能）。
+    details: 支持 EPUB、MOBI、KF8（AZW3）、FB2、CBZ、TXT，以及实验性的 PDF 阅读功能。
   - icon: 🔍
     title: 全文搜索
-    details: 在整本图书中搜索，快速找到相关内容。
+    details: 搜索整本图书，快速找到所需内容。
   - icon: 🎨
     title: 自定义样式
-    details: 调整字体、颜色和背景色等，打造个性化阅读体验。
+    details: 调整字体、文字颜色、背景色等样式，打造个性化阅读体验。
   - icon: 🔄
     title: 滚动与分页模式
-    details: 可在滚动阅读和分页阅读模式之间切换。
+    details: 在滚动阅读和分页阅读两种模式间自由切换。
   - icon: ⌨️
-    title: 键盘事件
-    details: 使用 ⬆️⬇️⬅️➡️ 翻页。
+    title: 键盘导航
+    details: 使用方向键快捷翻页。
 ---

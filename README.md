@@ -1,5 +1,5 @@
 <div align="center">
-  <img width=250 src="https://raw.githubusercontent.com/jinhuan138/vue--book-reader/master/public/logo.png" />
+  <img width="250" src="https://raw.githubusercontent.com/jinhuan138/vue-book-reader/master/public/logo.png" alt="VueBookReader logo" />
   <h1>VueBookReader</h1>
 </div>
 
@@ -7,39 +7,41 @@
 
 <p>
   <a href="https://www.npmjs.com/package/vue-book-reader" target="_blank">
-    <img src="https://img.shields.io/npm/v/vue-book-reader?style=flat-square" />
+    <img src="https://img.shields.io/npm/v/vue-book-reader?style=flat-square" alt="npm version" />
   </a>
   <a href="https://www.npmjs.com/package/vue-book-reader" target="_blank" >
-    <img src="https://img.shields.io/npm/dw/vue-book-reader?style=flat-square" />
+    <img src="https://img.shields.io/npm/dw/vue-book-reader?style=flat-square" alt="weekly npm downloads" />
   </a>
   <a href="./LICENSE">
-    <img src="https://img.shields.io/npm/l/vue-book-reader?style=flat-square" />
+    <img src="https://img.shields.io/npm/l/vue-book-reader?style=flat-square" alt="license" />
   </a>
 </p>
 
 <div align="center">
-  <h2><a href="https://jinhuan138.github.io/vue-book-reader/en/">📖Documentation</a></h2>
+  <h2><a href="https://jinhuan138.github.io/vue-book-reader/en/">📖 Documentation</a></h2>
 </div>
 
-# Introduction
+# Vue Book Reader
 
-vue-book-reader is a vue wrapper for [foliate-js](https://github.com/johnfactotum/foliate-js) - library for rendering e-books in the browser.
-Supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, PDF (experimental; requires PDF.js), or add support for other formats yourself by implementing the book interface
+`vue-book-reader` is a Vue wrapper around [foliate-js](https://github.com/johnfactotum/foliate-js) for rendering e-books in the browser.
 
-## Basic usage
+It supports EPUB, MOBI, KF8 (AZW3), FB2, CBZ, TXT, and PDF (experimental; requires PDF.js). You can also add other formats by implementing the book interface.
+
+## Installation
 
 ```bash
-npm install vue-book-reader --save
+npm install vue-book-reader
 ```
 
-And in your vue-component...
+## Basic usage
 
 ```vue
 <template>
   <div style="height: 100vh">
-    <vue-reader url="/vue-book-reader/files/啼笑因缘.epub" />
+    <VueReader url="/books/example.epub" />
   </div>
 </template>
+
 <script setup>
 import { VueReader } from 'vue-book-reader'
 </script>
@@ -47,49 +49,60 @@ import { VueReader } from 'vue-book-reader'
 
 ## VueReader API
 
-### VueReader Attributes
+### Props
 
-| **Name**                                    | **Description**                      | **Type**          | **Default** |
-| ------------------------------------------- | ------------------------------------ | ----------------- | ----------- |
-| url                                         | book url or File                     | `string`/`File`   | —           |
-| location                                    | set / update location of the book    | `string`/`number` | —           |
-| title                                       | the title of the book                | `string`          | —           |
-| showToc                                     | whether to show the toc              | `boolean`         | true        |
-| [BookView Attributes](#bookview-attributes) | BookView attributes all can be used. | -                 |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| `url` | URL or local file for the book. | `string \| File` | Required |
+| `title` | Title displayed above the reader. If omitted, the book metadata title is used. | `string` | `''` |
+| `showToc` | Whether to show the table-of-contents control. | `boolean` | `true` |
+| `getRendition` | Called when the underlying foliate view is ready. | `(view) => void` | — |
+| [BookView props](#props-1) | All BookView props can also be passed to VueReader. | — | — |
 
-### VueReader Slots
+### Slots
 
-| **Name**                          | **Description**                 |
-| --------------------------------- | ------------------------------- |
-| title                             | book title                      |
-| [BookView slots](#bookview-slots) | BookView slots all can be used. |
+| Name | Description |
+| --- | --- |
+| `title` | Custom content for the title area. |
+| [BookView slots](#slots-1) | All BookView slots are also available. |
 
-### VueReader Exposes
+### Exposed methods
 
-| **Name**                              | **Description**                   |
-| ------------------------------------- | --------------------------------- |
-| [BookView Exposes](#bookview-exposes) | BookView exposes all can be used. |
+| Name | Description | Type |
+| --- | --- | --- |
+| `nextPage` | Go to the next page. | `() => void` |
+| `prevPage` | Go to the previous page. | `() => void` |
+| `setLocation` | Go to a specific location. | `(href: string) => void` |
 
 ## BookView API
 
-### BookView Attributes
+### Props
 
-| **Name**   | **Description**                                             | **Type**         | **Default** |
-| ---------- | ----------------------------------------------------------- | ---------------- | ----------- |
-| url        | book url or File                                            | `string`/`File`  |             |
-| tocChanged | get an array representing the table of contents of the book | `function(href)` |             |
+| Name | Description | Type | Default |
+| --- | --- | --- | --- |
+| `url` | URL or local file for the book. | `string \| File` | Required |
+| `location` | Initial or updated reading location. | `string \| number` | — |
+| `initOption` | Options passed to the foliate view during initialization. | `object` | — |
+| `tocChanged` | Called with the book's table of contents after loading. | `(toc: object[]) => void` | — |
+| `getRendition` | Called when the underlying foliate view is ready. | `(view) => void` | — |
 
-### BookView Slots
+### Events
 
-| **Name**    | **Description**      |
-| ----------- | -------------------- |
-| loadingView | BookView loadingView |
-| errorView   | BookView errorView   |
+| Name | Description | Payload |
+| --- | --- | --- |
+| `update:location` | Emitted whenever the reading location changes. | Relocation details from foliate-js |
 
-### BookView Exposes
+### Slots
 
-| **Name**    | **Description**       | **Type**         |
-| ----------- | --------------------- | ---------------- |
-| nextPage    | display next page     | `function`       |
-| prevPage    | display previous page | `function`       |
-| setLocation | Set the page          | `function(href)` |
+| Name | Description |
+| --- | --- |
+| `loadingView` | Content displayed while the book is loading. |
+| `errorView` | Content displayed if the book fails to load. |
+
+### Exposed methods
+
+| Name | Description | Type |
+| --- | --- | --- |
+| `nextPage` | Go to the next page. | `() => void` |
+| `prevPage` | Go to the previous page. | `() => void` |
+| `setLocation` | Go to a specific location. | `(href: string) => void` |

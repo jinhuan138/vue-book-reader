@@ -1,3 +1,3 @@
-# 自定义 CSS
+# 自定义阅读器样式
 
 <preview path="../../demos/CustomCss.vue"></preview>

@@ -1,3 +1,3 @@
-# Display page number for current chapter
+# Display the Current Chapter's Page Number
 
 <preview path="../../demos/PageNumber.vue"></preview>
