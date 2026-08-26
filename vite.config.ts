@@ -12,9 +12,9 @@ export default defineConfig({
   plugins: [
     vue(),
     libInjectCss(),
-    visualizer({
-      filename: `stats${version}.html`,
-    }) as PluginOption,
+    // visualizer({
+    //   filename: `stats${version}.html`,
+    // }) as PluginOption,
     viteStaticCopy({
       targets: [
         {

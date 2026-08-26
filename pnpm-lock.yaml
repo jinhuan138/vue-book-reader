@@ -51,6 +51,9 @@ importers:
       vue:
         specifier: ^3.5.27
         version: 3.5.27(typescript@5.7.3)
+      vue-book-reader:
+        specifier: link:.
+        version: 'link:'
       vue-tsc:
         specifier: ^2.0.6
         version: 2.0.13(typescript@5.7.3)

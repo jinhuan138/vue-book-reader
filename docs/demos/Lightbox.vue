@@ -18,7 +18,7 @@ const visibleRef = ref(false)
 const getRendition = (rendition) => {
     rendition.renderer.setStyles([
         `img, image {
-        cursor: pointer;
+        cursor: zoom-in;
       }`
     ])
     rendition.addEventListener('load', () => {

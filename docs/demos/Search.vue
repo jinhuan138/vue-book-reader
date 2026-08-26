@@ -6,7 +6,7 @@
             <div class="searchResults">
                 <div v-if="!searchResults.length">Empty</div>
                 <div class="item" v-for="(item, index) in searchResults" :key="index" @click="go(item.cfi)">
-                    <span v-html="item.label"> </span>
+                    <span>{{ item.pre }}<mark>{{ item.match }}</mark>{{ item.post }}</span>
                 </div>
             </div>
         </div>
@@ -23,37 +23,13 @@ const searchText = ref('只在捻花一笑中')
 const searchResults = ref([])
 const search = async () => {
     if (!searchText.value) return
-    const generator = await rendition.search({
-        scope: undefined,
-        query: searchText.value,
-        index: undefined,
-    })
     const results = []
-    for await (const result of generator) {
-        if (typeof result === 'string') {
-            if (result === 'done') {
-                console.log('search done')
-            }
-        } else {
-            if (result.progress) {
-                console.log('search progress:', result.progress)
-            } else {
-                results.push(result)
-            }
-        }
+    for await (const result of rendition.search({ query: searchText.value })) {
+        if (result.progress) console.log('search progress:', result.progress)
+        if (!result.subitems) continue
+        for (const { cfi, excerpt } of result.subitems) results.push({ cfi, ...excerpt })
     }
-    const tableResults = []
-    results.forEach(({ subitems }) => {
-        subitems.forEach((item) => {
-            const { pre, post } = item.excerpt
-            const label = `${pre}<span style='color: orange;'>${searchText.value}</span>${post}`
-            tableResults.push({
-                label,
-                cfi: item.cfi,
-            })
-        })
-    })
-    searchResults.value = tableResults
+    searchResults.value = results
 }
 const go = (cfi) => {
     rendition.goTo?.(cfi)
@@ -62,32 +38,31 @@ const go = (cfi) => {
 <style scoped>
 .search {
     position: absolute;
-    bottom: 1rem;
     right: 1rem;
-    left: 1rem;
-    text-align: center;
+    bottom: 1rem;
     z-index: 1;
+    width: 28rem;
+    padding: 1rem;
+    font-size: 1.4rem;
     color: #000;
     background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.search .searchResults {
-    width: 200px;
+.searchResults {
+    max-height: 40vh;
+    overflow-y: auto;
 }
 
-.search .searchResults .item {
-    cursor: pointer;
-    border-radius: 4px;
+.item {
+    max-height: 2.8em;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    border-bottom: 1px solid #000;
+    padding-top: 0.4rem;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
 }
 
-.search .searchResults .item:hover {
-    background: rgba(0, 0, 0, 0.05);
+mark {
+    color: #e8590c;
+    background: none;
 }
 </style>
