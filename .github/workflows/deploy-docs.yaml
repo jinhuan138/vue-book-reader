@@ -40,6 +40,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
+          submodules: recursive
+      - name: Initialize foliate-js submodule
+        run: git submodule update --init --recursive
       - uses: pnpm/action-setup@v3 # 使用 pnpm
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -51,6 +54,8 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: pnpm install # 使用 pnpm 安装依赖
+      - name: Apply foliate-js patches
+        run: pnpm run fix-foliate
       - name: Build vue-book-reader
         run: pnpm run build
       - name: Build with VitePress
