@@ -1,6 +1,7 @@
 <template>
   <div v-for="(item, index) in bookToc" :key="index">
     <button
+      :ref="setTocItemRef(item.href)"
       class="tocAreaButton"
       :class="{ active: item.href === current }"
       @click="handleClick(item)"
@@ -27,7 +28,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch, toRefs } from 'vue'
+import { nextTick, ref, toRefs, watch } from 'vue'
 export interface TocProps {
   toc: Array<any>
   current: string | number | null
@@ -40,6 +41,36 @@ const props = withDefaults(defineProps<TocProps>(), {
 })
 const { setLocation } = props
 const { toc, current, isSubmenu } = toRefs(props)
+const tocItemRefs = new Map<string, HTMLButtonElement>()
+
+const setTocItemRef = (href: string | number) => (element: Element | null) => {
+  const key = String(href)
+  if (element instanceof HTMLButtonElement) tocItemRefs.set(key, element)
+  else tocItemRefs.delete(key)
+}
+
+const expandCurrentItemParents = (items: any[], href: string | number | null): boolean =>
+  items.some((item) => {
+    const isCurrentItem = item.href === href
+    const hasCurrentChild = item.subitems?.length
+      ? expandCurrentItemParents(item.subitems, href)
+      : false
+
+    if (hasCurrentChild) item.expansion = true
+    return isCurrentItem || hasCurrentChild
+  })
+
+const syncCurrentItem = async (href: string | number | null) => {
+  if (href === null) return
+
+  expandCurrentItemParents(bookToc.value, href)
+  await nextTick()
+  tocItemRefs.get(String(href))?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  })
+}
+
 const handleClick = (item): void => {
   if (item.subitems && item?.subitems?.length > 0) {
     item.expansion = !item.expansion
@@ -56,6 +87,15 @@ watch(
       ...item,
       expansion: expansionMap.get(item.href) ?? false,
     }))
+    void syncCurrentItem(current.value)
+  },
+  { immediate: true },
+)
+
+watch(
+  current,
+  (href) => {
+    void syncCurrentItem(href)
   },
   { immediate: true },
 )
