@@ -6,6 +6,14 @@ on:
     branches: [master]
     paths:
       - 'docs/**'  # 只有 docs 目录下的文件变更时才触发
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'vite.config.ts'
+      - 'tsconfig.json'
+      - 'tsconfig.node.json'
       - '.github/workflows/deploy-docs.yaml'  # 工作流文件变更时触发
 
   # 允许你从 Actions 选项卡手动运行此工作流程
@@ -43,6 +51,8 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: pnpm install # 使用 pnpm 安装依赖
+      - name: Build vue-book-reader
+        run: pnpm run build
       - name: Build with VitePress
         run: pnpm run docs:build # 使用 pnpm 运行构建
       - name: Upload artifact
