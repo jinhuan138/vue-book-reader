@@ -133,6 +133,11 @@ export default defineConfig({
   },
   vite: {
     publicDir: resolve(__dirname, "../../public"),
+    resolve: {
+      alias: [
+        { find: /^vue-book-reader$/, replacement: resolve(__dirname, '../../src/packages/index.ts') },
+      ],
+    },
     css: {
       preprocessorOptions: {
         scss: {

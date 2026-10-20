@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import BookView from '../BookView/BookView.vue'
 import Toc from './Toc.vue'
-import { ref, reactive, toRefs, useTemplateRef, onUnmounted, type PropType } from 'vue'
+import { ref, reactive, toRefs, useTemplateRef, watch, onUnmounted, type PropType } from 'vue'
 type BookViewType = InstanceType<typeof BookView>
 const props = defineProps({
   url: {
@@ -61,14 +61,13 @@ const props = defineProps({
   getRendition: {
     type: Function,
   },
+  tocChanged: Function,
 })
 
 const book = reactive({
   toc: [], //目录
   expandedToc: false, //目录展开
 })
-
-const { getRendition } = props
 
 const { toc, expandedToc } = toRefs(book)
 
@@ -82,26 +81,39 @@ const onRelocate = ({ detail }) => {
   currentHref.value = detail.tocItem?.href || null
 }
 const onRenditionLoad = () => {
-  const { book } = rendition
-  const title = book.metadata?.title
+  const title = rendition?.book.metadata?.title
   bookName.value = title || ''
 }
 const onGetRendition = (val) => {
+  cleanupRendition()
   rendition = val
-  getRendition?.(rendition)
+  onRenditionLoad()
   rendition.addEventListener('load', onRenditionLoad)
   rendition.addEventListener('relocate', onRelocate)
+  props.getRendition?.(rendition)
 }
 
-onUnmounted(() => {
+const cleanupRendition = () => {
   if (rendition) {
     rendition.removeEventListener('load', onRenditionLoad)
     rendition.removeEventListener('relocate', onRelocate)
   }
+  rendition = null
+}
+
+onUnmounted(cleanupRendition)
+
+watch(() => props.url, () => {
+  cleanupRendition()
+  bookName.value = ''
+  currentHref.value = null
+  toc.value = []
+  expandedToc.value = false
 })
 
 const onTocChange = (_toc) => {
   toc.value = _toc
+  props.tocChanged?.(_toc)
 }
 
 const toggleToc = () => {
@@ -109,15 +121,16 @@ const toggleToc = () => {
 }
 
 const next = () => {
-  bookRef.value!.nextPage()
+  return bookRef.value?.nextPage()
 }
 const pre = () => {
-  bookRef.value!.prevPage()
+  return bookRef.value?.prevPage()
 }
 
 const setLocation = (href, close = true) => {
-  bookRef.value!.setLocation(href)
+  const result = bookRef.value?.setLocation(href)
   expandedToc.value = !close
+  return result
 }
 
 defineExpose({

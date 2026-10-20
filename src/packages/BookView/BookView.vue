@@ -19,39 +19,30 @@ import {
   wheelListener,
   keyListener,
 } from '../utils/listener/listener'
-import { ref, toRefs, watch, onMounted, onUnmounted } from 'vue'
+import { ref, toRefs, watch, onMounted, onUnmounted, nextTick, type PropType } from 'vue'
 import 'core-js/proposals/array-grouping-v2'
+import 'core-js/proposals/promise-with-resolvers'
 interface FoliateViewElement extends HTMLElement {
   open: (url: string | File) => Promise<void>
   close: () => void
-  goTo: (href: string | number) => void
-  next: () => void
-  prev: () => void
-  init: (options: { lastLocation?: string | number }) => Promise<void>
+  goTo: (href: string | number) => Promise<unknown>
+  next: () => Promise<void>
+  prev: () => Promise<void>
+  init: (options: { lastLocation?: string | number; showTextStart?: boolean }) => Promise<void>
+  lastLocation?: { cfi?: string }
   renderer: any
   book: {
     toc: any[]
+    destroy?: () => void
   }
-}
-if (typeof Promise.withResolvers === 'undefined') {
-  if (window)
-    // @ts-expect-error This does not exist outside of polyfill which this is doing
-    window.Promise.withResolvers = function () {
-      let resolve, reject
-      const promise = new Promise((res, rej) => {
-        resolve = res
-        reject = rej
-      })
-      return { promise, resolve, reject }
-    }
 }
 const props = defineProps({
   url: {
-    type: [String, File],
+    type: [String, Object] as PropType<string | File>,
     required: true,
   },
   location: {
-    type: [String, Number],
+    type: [String, Number, Object] as PropType<string | number | { cfi: string }>,
   },
   initOption: {
     type: Object,
@@ -60,7 +51,6 @@ const props = defineProps({
   getRendition: Function,
 })
 
-const { tocChanged, getRendition, initOption } = props
 const { url, location } = toRefs(props)
 
 const emit = defineEmits(['update:location'])
@@ -69,34 +59,90 @@ let view: null | FoliateViewElement = null
 const viewer = ref<HTMLElement | null>(null)
 const isLoaded = ref<boolean>(false)
 const isError = ref<boolean>(false)
-const initBook = async () => {
+let loadRequest = 0
+let mounted = false
+let isReady = false
+const openingViews = new WeakSet<FoliateViewElement>()
+
+const closeView = (currentView: FoliateViewElement) => {
   try {
-    if (url?.value) {
-      if (view) {
-        view.close()
-      } else {
-        view = document.createElement('foliate-view') as FoliateViewElement
-        viewer.value!.append(view)
-      }
-      await view.open(url.value)
-      getRendition && getRendition(view)
-      await initReader()
+    // 尚未生成首页时，底层 renderer.destroy() 可能抛错，仍需释放图书资源。
+    try {
+      currentView.close()
+    } finally {
+      currentView.book?.destroy?.()
     }
   } catch (error) {
+    console.warn('Error closing book:', error)
+  }
+}
+
+const cleanupView = () => {
+  const previousView = view
+  view = null
+  isReady = false
+  cleanupDocListeners()
+  previousView?.removeEventListener('load', onLoad)
+  previousView?.removeEventListener('relocate', onRelocate)
+  previousView?.remove()
+  // 等 open/init 结束后再关闭，避免破坏仍在运行的底层任务。
+  if (previousView && !openingViews.has(previousView)) closeView(previousView)
+}
+
+const getLocation = () =>
+  typeof location.value === 'object' ? location.value?.cfi : location.value
+
+const initBook = async () => {
+  if (!mounted) return
+  const request = ++loadRequest
+  isLoaded.value = false
+  isError.value = false
+  cleanupView()
+  if (!url.value) return
+
+  let currentView: FoliateViewElement | null = null
+  try {
+    if (!customElements.get('foliate-view')) {
+      await import('../foliate-js/view.js')
+    }
+    if (request !== loadRequest || !mounted) return
+    currentView = document.createElement('foliate-view') as FoliateViewElement
+    view = currentView
+    openingViews.add(currentView)
+    viewer.value!.append(currentView)
+    await currentView.open(url.value)
+    if (request !== loadRequest) return
+    props.getRendition?.(currentView)
+    if (request !== loadRequest || view !== currentView) return
+    await initReader()
+    if (request === loadRequest && view === currentView) isReady = true
+  } catch (error) {
+    if (request !== loadRequest) return
     console.error('Error opening book:', error)
+    isLoaded.value = false
     isError.value = true
+    cleanupView()
+  } finally {
+    if (currentView) {
+      openingViews.delete(currentView)
+      if (currentView !== view) closeView(currentView)
+    }
   }
 }
 
 const initReader = async () => {
+  const currentView = view!
   isLoaded.value = true
-  const { book } = view as FoliateViewElement
   registerEvents()
-  tocChanged && tocChanged(book.toc)
-  if (initOption) {
-    await view!.init(initOption);
+  props.tocChanged?.(currentView.book.toc ?? [])
+  // 保留 v-show，等待容器恢复尺寸后再排版。
+  await nextTick()
+  if (view !== currentView) return
+  const target = getLocation()
+  if (target !== undefined && target !== '') {
+    await currentView.goTo(target)
   } else {
-    view!.renderer.next()
+    await currentView.init(props.initOption ?? {})
   }
 }
 
@@ -125,6 +171,7 @@ const cleanupDocListeners = (doc?: Document) => {
 }
 
 const onLoad = (e: Event) => {
+  if (e.currentTarget !== view) return
   const { doc } = (e as CustomEvent).detail
 
   // Fixed-layout books (including CBZ) can display two iframe documents at
@@ -141,34 +188,42 @@ const onLoad = (e: Event) => {
   ])
 }
 onUnmounted(() => {
-  view?.removeEventListener('load', onLoad)
-  view?.removeEventListener('relocate', onRelocate)
-  cleanupDocListeners()
+  mounted = false
+  loadRequest++
+  cleanupView()
   cleanupRootKeyListener?.()
 })
 
 const onRelocate = (e: Event) => {
+  if (e.currentTarget !== view) return
   const { detail } = e as CustomEvent
   emit('update:location', detail)
 }
 
-const nextPage = () => view?.next()
+const nextPage = () => isReady ? view?.next() : undefined
 
-const prevPage = () => view?.prev()
+const prevPage = () => isReady ? view?.prev() : undefined
 
-const setLocation = (href: string) => view?.goTo(href)
+const setLocation = (href: string | number) => isReady ? view?.goTo(href) : undefined
 
 watch(url, () => {
   initBook()
 })
 
-onMounted(async () => {
+watch(getLocation, (target) => {
+  if (!isReady || target === undefined || target === '') return
+  if (target === view?.lastLocation?.cfi) return
+  const request = loadRequest
+  setLocation(target)?.catch((error) => {
+    if (request === loadRequest) console.error('Error navigating book:', error)
+  })
+})
+
+onMounted(() => {
+  mounted = true
   // Fixed-layout pages are replaced while navigating. Listen on the stable
   // outer document as well, so keyboard navigation survives iframe removal.
   cleanupRootKeyListener = keyListener(document, flipPage)
-  if (!customElements.get('foliate-view')) {
-    await import('../foliate-js/view.js')
-  }
   initBook()
 })
 

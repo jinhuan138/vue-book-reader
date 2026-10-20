@@ -7,7 +7,7 @@ type epubEvent = WheelEvent & { ignore?: boolean }
 type Direction = 'next' | 'prev'
 
 export default function wheelListener(
-  el: HTMLElement,
+  el: Document | HTMLElement,
   fn: (dire: Direction) => void,
 ) {
   // Required min distance traveled to be considered swipe
@@ -16,7 +16,7 @@ export default function wheelListener(
   const allowedTime = 50
 
   let dist: number = 0
-  let isScrolling: NodeJS.Timeout
+  let isScrolling: ReturnType<typeof setTimeout> | undefined
 
   const handler = (e: epubEvent) => {
     if (e.ignore) return
@@ -37,6 +37,10 @@ export default function wheelListener(
     }, allowedTime)
   }
 
-  el.addEventListener('wheel', handler)
-  return () => el.removeEventListener('wheel', handler)
+  el.addEventListener('wheel', handler as EventListener)
+  return () => {
+    el.removeEventListener('wheel', handler as EventListener)
+    clearTimeout(isScrolling)
+    dist = 0
+  }
 }
