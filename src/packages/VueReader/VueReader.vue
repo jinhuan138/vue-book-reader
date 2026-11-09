@@ -2,8 +2,13 @@
   <div class="container">
     <div class="readerArea" :class="{ containerExpanded: expandedToc }">
       <!--展开目录 -->
-      <button v-if="showToc" class="tocButton" :class="{ tocButtonExpanded: expandedToc }" type="button"
-        @click="toggleToc">
+      <button
+        v-if="showToc"
+        class="tocButton"
+        :class="{ tocButtonExpanded: expandedToc }"
+        type="button"
+        @click="toggleToc"
+      >
         <span class="tocButtonBar" style="top: 35%"></span>
         <span class="tocButtonBar" style="top: 66%"></span>
       </button>
@@ -14,7 +19,13 @@
         </div>
       </slot>
       <!-- 阅读 -->
-      <book-view ref="bookRef" v-bind="$attrs" :url="url" :tocChanged="onTocChange" :getRendition="onGetRendition">
+      <book-view
+        ref="bookRef"
+        v-bind="$attrs"
+        :url="url"
+        :tocChanged="onTocChange"
+        :getRendition="onGetRendition"
+      >
         <template #loadingView>
           <slot name="loadingView">
             <div class="loadingView">Loading…</div>
@@ -43,7 +54,7 @@
 <script setup lang="ts">
 import BookView from '../BookView/BookView.vue'
 import Toc from './Toc.vue'
-import { ref, reactive, toRefs, useTemplateRef, watch, onUnmounted, type PropType } from 'vue'
+import { ref, reactive, toRefs, watch, onUnmounted, type PropType } from 'vue'
 type BookViewType = InstanceType<typeof BookView>
 const props = defineProps({
   url: {
@@ -71,7 +82,7 @@ const book = reactive({
 
 const { toc, expandedToc } = toRefs(book)
 
-const bookRef = useTemplateRef<BookViewType>('bookRef')
+const bookRef = ref<null | BookViewType>(null)
 const currentHref = ref(null)
 
 const bookName = ref('')
@@ -103,13 +114,16 @@ const cleanupRendition = () => {
 
 onUnmounted(cleanupRendition)
 
-watch(() => props.url, () => {
-  cleanupRendition()
-  bookName.value = ''
-  currentHref.value = null
-  toc.value = []
-  expandedToc.value = false
-})
+watch(
+  () => props.url,
+  () => {
+    cleanupRendition()
+    bookName.value = ''
+    currentHref.value = null
+    toc.value = []
+    expandedToc.value = false
+  },
+)
 
 const onTocChange = (_toc) => {
   toc.value = _toc
