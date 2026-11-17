@@ -29,7 +29,6 @@
     "url": "git@github.com:jinhuan138/vue-book-reader.git"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "fix-foliate": "node scripts/fix-foliate.mjs",
     "dev": "vite",
     "build": "vue-tsc && vite build",
